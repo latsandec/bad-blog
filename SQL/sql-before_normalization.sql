@@ -11,7 +11,7 @@ CREATE TABLE User(
 CREATE TABLE VIP(
     vipID INTEGER,
     vip_level INTEGER NOT NULL,
-    color CHAR(250),
+    preferred_color CHAR(250),
     PRIMARY KEY(vipID),
     FOREIGN KEY(vipID) REFERENCES User(userID)
 )
@@ -50,7 +50,6 @@ CREATE TABLE Community(
 
 CREATE TABLE Topic(
     topic_name CHAR(250),
-    tag CHAR(10) NOT NULL,
     PRIMARY KEY(topic_name),
 )
 
@@ -69,11 +68,12 @@ CREATE TABLE Subscribe(
     PRIMARY KEY(userID,communityID),
     FOREIGN KEY(userID) REFERENCES User(userID),
     FOREIGN KEY(communityID) REFERENCES Community(communityID)
+)
 
-CREATE TABLE Bog_Create_In(
+CREATE TABLE Blog_Create_In(
     blogId INTEGER,
     userID INTEGER NOT NULL,
-    blogTime TIME NOT NULL,
+    blogTime DATETIME NOT NULL,
     communityID INTEGER NOT NULL,
     title CHAR(250) NOT NULL,
     content CHAR(250) NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE Comment_Create_Follows(
     content CHAR(250) NOT NULL,
     PRIMARY KEY(oder,blogId),
     FOREIGN KEY(userID) REFERENCES User(userID),
-    FOREIGN KEY(blogId) REFERENCES Bog_Create_In(blogId)
+    FOREIGN KEY(blogId) REFERENCES Blog_Create_In(blogId)
 
 
 )
@@ -144,7 +144,7 @@ INSERT INTO Subscribe    VALUES(1,1)
 INSERT INTO Subscribe    VALUES(1,1)
 
 ####################################################
-INSERT INTO Bog_Create_In    VALUES(1,1)
+INSERT INTO Blog_Create_In    VALUES(1,1)
 
 INSERT INTO Comment_Create_Follows    VALUES(1,1)
 
