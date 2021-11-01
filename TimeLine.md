@@ -1,38 +1,35 @@
-Timeline
-
-(PS: ^^^ means task above will be done by)
-
-Ruinan:
-Queries: INSERT Operation
-Queries: DELETE Operation
-Queries: UPDATE Operation
-
-Ruinan:
-Queries: Selection
-Queries: Projection
-
-Annie:
-Queries: Join
-Queries: Division
-
-Cheryl:
-Queries: Aggregation with Group By
-Queries: Aggregation with Having
-Queries: Nested Aggregation with Group By
-
-^^^ Nov.7th
+# Timeline #
 
 
-GUI
+Ruinan:\
+*Queries: INSERT Operation\
+Queries: DELETE Operation\
+Queries: UPDATE Operation\
+Queries: Selection\
+Queries: Projection*
+
+Annie:\
+*Queries: Join\
+Queries: Division*
+
+Cheryl:\
+*Queries: Aggregation with Group\
+Queries: Aggregation with Having\
+Queries: Nested Aggregation with Group*
+
+We plan to finish the draft of above queries by Nov. 7th.
+
+
+** Front End **\
 Basic website design: Annie
 implement login page: Annie
 implement page with tables showing all users: Ruinan
 implement community page shows blogs: Cheryl
 implement blog page shows comments: Cheryl
 
-^^^ Nov.14
+We plan to finish the draft of above by Nov.14.
 
-PHP
+** PHP **
 
 front-end connect back-end user : Annie
 front-end connect back-end securityInfo: Ruinan
@@ -42,12 +39,9 @@ front-end connect back-end community: Cheryl
 front-end connect back-end comment: Cheryl
 front-end connect back-end topic: Cheryl
 
-^^^ Nov.21
+We plan to finish the draft of above by Nov.21.
 
 Project Description:
 README: Cheryl
 
-^^^ Nov.23
-
-Additional question:
-Can we use css framework?
+We plan to finish the draft of project by Nov.23
