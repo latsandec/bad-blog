@@ -75,15 +75,6 @@ CREATE TABLE Topic(
     PRIMARY KEY(topic_name)
 );
 
--- CREATE TABLE About(
---     communityID INTEGER,
---     topic_name CHAR(250),
-    -- PRIMARY KEY(communityID,topic_name),
-    -- FOREIGN KEY(communityID) REFERENCES Community(communityID) ON DELETE CASCADE,
-    -- FOREIGN KEY(topic_name) REFERENCES Topic(topic_name) ON DELETE CASCADE
-
--- );
-
 CREATE TABLE Subscribe(
     userID INTEGER,
     communityID INTEGER,
@@ -131,3 +122,12 @@ CREATE TABLE Comment_Create_Follows(
     FOREIGN KEY(userID) REFERENCES blog_users(userID) ON DELETE CASCADE
 );
 
+
+CREATE TABLE About(
+    communityID INTEGER,
+    topic_name CHAR(250),
+    PRIMARY KEY(communityID,topic_name),
+    FOREIGN KEY(communityID) REFERENCES Community(communityID) ON DELETE CASCADE,
+    FOREIGN KEY(topic_name) REFERENCES Topic(topic_name) ON DELETE CASCADE
+);
+select table_name from user_tables;
