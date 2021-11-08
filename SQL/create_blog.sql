@@ -1,30 +1,14 @@
--- drop table blog_users;
--- drop table Birthday_Age;
--- drop table VIP;
--- drop table SecurityInfo_Of;
--- drop table Community;
--- drop table Admin_Monitor;
--- drop table Ban;
--- drop table Topic;
--- drop table About;
-
--- drop table Subscribe;
--- drop table CID_DATETIME_Title;
--- drop table UID_CID_DATETIME;
--- drop table BID;
--- drop table Comment_Create_Follows;
-
 CREATE TABLE blog_users(
     userID INTEGER,
     userName CHAR(250) NOT NULL,
-    birthday CHAR(8),
+    birthday CHAR(10),
     userPassword CHAR(250) NOT NULL,
     ban_status INTEGER NOT NULL,
     PRIMARY KEY(userID)
 );
 
 CREATE TABLE Birthday_Age(
-    birthday CHAR(8),
+    birthday CHAR(10),
     age INTEGER,
     PRIMARY KEY(birthday)
 );

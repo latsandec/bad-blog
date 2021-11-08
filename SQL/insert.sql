@@ -1,0 +1,93 @@
+INSERT INTO blog_users    VALUES(3040001,'Amy','2000-01-01','password3040001',0);
+INSERT INTO blog_users    VALUES(3040002,'Bob','2000-01-02','password3040002',0);
+INSERT INTO blog_users    VALUES(3040003,'Cindy','2000-01-03','password3040003',0);
+INSERT INTO blog_users    VALUES(3040004,'Darwin','2000-01-04','password3040004',0);
+INSERT INTO blog_users    VALUES(3040005,'Grace','2000-01-05','password3040005',1);
+
+INSERT INTO blog_users    VALUES(3041001,'Amy','2000-01-01','password3040001',0);
+INSERT INTO blog_users    VALUES(3041002,'Bob','2000-01-02','password3040002',0);
+INSERT INTO blog_users    VALUES(3041003,'Cindy','2000-01-03','password3040003',0);
+INSERT INTO blog_users    VALUES(3041004,'Darwin','2000-01-04','password3040004',0);
+INSERT INTO blog_users    VALUES(3041005,'Grace','2000-01-05','password3040005',1);
+
+INSERT INTO Birthday_Age    VALUES('2000-01-01',21);
+INSERT INTO Birthday_Age    VALUES('2000-01-02',21);
+INSERT INTO Birthday_Age    VALUES('2000-01-03',21);
+INSERT INTO Birthday_Age    VALUES('2000-01-04',21);
+INSERT INTO Birthday_Age    VALUES('2000-01-05',21);
+
+
+INSERT INTO VIP    VALUES(3041001,3,'blue');
+INSERT INTO VIP    VALUES(3041002,8,NULL);
+INSERT INTO VIP    VALUES(3041003,7,'green');
+INSERT INTO VIP    VALUES(3041004,5,'red');
+INSERT INTO VIP    VALUES(3041005,4,'purple');
+
+INSERT INTO SecurityInfo_Of    VALUES(3040001,'jim1@gmail.com','What is the favorate food?','apple');
+INSERT INTO SecurityInfo_Of    VALUES(3040002,'jim2@gmail.com','What is the favorate color?','blue');
+INSERT INTO SecurityInfo_Of    VALUES(3040003,'jim3@gmail.com','What is the favorate animal?','dog');
+INSERT INTO SecurityInfo_Of    VALUES(3040004,'jim4@gmail.com','What is the favorate singer?','Jay Chou');
+INSERT INTO SecurityInfo_Of    VALUES(3040005,'jim5@gmail.com','What is the favorate subject?','computer science');
+
+INSERT INTO Community    VALUES(3045001, 1);
+INSERT INTO Community    VALUES(3045002, 2);
+INSERT INTO Community    VALUES(3045003, 3);
+INSERT INTO Community    VALUES(3045004, 4);
+INSERT INTO Community    VALUES(3045005, 5);
+INSERT INTO Community    VALUES(3045006, 5);
+
+INSERT INTO Admin_Monitor    VALUES(3044001,'autobot1','adminpassword1',3045001);
+INSERT INTO Admin_Monitor    VALUES(3044002,'autobot2','adminpassword2',3045002);
+INSERT INTO Admin_Monitor    VALUES(3044003,'autobot3','adminpassword3',3045003);
+INSERT INTO Admin_Monitor    VALUES(3044004,'autobot4','adminpassword4',3045004);
+INSERT INTO Admin_Monitor    VALUES(3044005,'autobot5','adminpassword5',3045005);
+
+INSERT INTO Ban    VALUES(3040001,3044001);
+INSERT INTO Ban    VALUES(3040002,3044002);
+INSERT INTO Ban    VALUES(3040003,3044003);
+INSERT INTO Ban    VALUES(3040004,3044004);
+INSERT INTO Ban    VALUES(3040005,3044005);
+
+INSERT INTO Topic VALUES('Sports');
+INSERT INTO Topic VALUES('Music');
+INSERT INTO Topic VALUES('Cook');
+INSERT INTO Topic VALUES('Anime');
+INSERT INTO Topic VALUES('IT');
+
+INSERT INTO About    VALUES(3045001, 'Sports');
+INSERT INTO About    VALUES(3045001, 'Music');
+INSERT INTO About    VALUES(3045002, 'Music');
+INSERT INTO About    VALUES(3045003, 'Cook');
+INSERT INTO About    VALUES(3045004, 'Anime');
+INSERT INTO About    VALUES(3045005, 'IT');
+INSERT INTO About    VALUES(3045006, 'IT');
+
+INSERT INTO Subscribe    VALUES(3040001,3045001);
+INSERT INTO Subscribe    VALUES(3040002,3045002);
+INSERT INTO Subscribe    VALUES(3040003,3045003);
+INSERT INTO Subscribe    VALUES(3040004,3045004);
+INSERT INTO Subscribe    VALUES(3040005,3045005);
+
+INSERT INTO CID_DATETIME_Title    VALUES(3045001,to_date('0001-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'testing_title','testing_content');
+INSERT INTO CID_DATETIME_Title    VALUES(3045002,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'testing_title','testing_content');
+INSERT INTO CID_DATETIME_Title    VALUES(3045003,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'testing_title','testing_content');
+INSERT INTO CID_DATETIME_Title    VALUES(3045004,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'testing_title','testing_content');
+INSERT INTO CID_DATETIME_Title    VALUES(3045005,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'testing_title','testing_content');
+
+INSERT INTO UID_CID_DATETIME    VALUES(3040001,3045001,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'testing_title');
+INSERT INTO UID_CID_DATETIME    VALUES(3040002,3045002,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'testing_title');
+INSERT INTO UID_CID_DATETIME    VALUES(3040003,3045003,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'testing_title');
+INSERT INTO UID_CID_DATETIME    VALUES(3040004,3045004,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'testing_title');
+INSERT INTO UID_CID_DATETIME    VALUES(3040005,3045005,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'testing_title');
+
+INSERT INTO BID    VALUES(3042001,3040001,3045001,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO BID    VALUES(3042002,3040002,3045002,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO BID    VALUES(3042003,3040003,3045003,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO BID    VALUES(3042004,3040004,3045004,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO BID    VALUES(3042005,3040005,3045005,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+
+INSERT INTO Comment_Create_Follows    VALUES(1,3042001,3040001,'testing_content');
+INSERT INTO Comment_Create_Follows    VALUES(2,3042002,3040002,'testing_content');
+INSERT INTO Comment_Create_Follows    VALUES(3,3042003,3040003,'testing_content');
+INSERT INTO Comment_Create_Follows    VALUES(4,3042004,3040004,'testing_content');
+INSERT INTO Comment_Create_Follows    VALUES(5,3042005,3040005,'testing_content');
