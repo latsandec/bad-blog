@@ -20,26 +20,16 @@ Queries: Nested Aggregation with Group*
 We plan to finish the draft of above queries by Nov. 7th.
 
 
-**Front End**\
-Basic website design: Annie\
-implement login page: Annie\
-implement page with tables showing all users: Ruinan\
-implement community page shows blogs: Cheryl\
-implement blog page shows comments: Cheryl\
+**Front End and PHP**
+We laterly change our plan. Now one group member is resposible for a specific part of both front end and back end design.\
 
-We plan to finish the draft of above by Nov.14.
+Annie is resposible to the comment, topic, community and admin part.
 
-**PHP**
+Cheryl is resposible for the blog part (including posting blog and modify blog).
 
-front-end connect back-end user : Annie\
-front-end connect back-end securityInfo: Ruinan\
-front-end connect back-end admin: Annie\
-front-end connect back-end blog: Ruinan\
-front-end connect back-end community: Cheryl\
-front-end connect back-end comment: Cheryl\
-front-end connect back-end topic: Cheryl
+Ruinan is resposible for the user, securityInfo and VIP part (including login and signup). 
 
-We plan to finish the draft of above by Nov.21.
+We plan to finish the draft of above by Nov.19.
 
 Project Description:
 README: Cheryl
