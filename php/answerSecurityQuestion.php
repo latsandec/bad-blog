@@ -14,12 +14,10 @@
     </form>
 
 <?php
-$email;
-// session_id("abc");
-// session_start();
-// $email = $_SESSION['email'];
-// echo session_id();
-echo $email;
+session_start();
+$email = $_SESSION["email"];
+session_regenerate_id(true);
+exit;
 ?>
 </body>
 </html>
