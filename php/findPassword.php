@@ -8,42 +8,115 @@
 </head>
 <body>
     
-<form method = "POST" action="findPassword.php">
+<form method = "GET" action="findPassword.php">
     <h1> Find Password
         <li>
-            <label >Email:</label>
+            <label >Enter Your Email and Click Confirm Please:</label>
             <input type="text" name = "email" placeholder = "email">
             <input type="submit" value="confirm" name="confirm">
         </li>
     </h1>
 </form>
 
+
 <?php
-$email = $_REQUEST["email"];
+session_save_path('/home/r/rjin02/public_html');
+session_start();
+$email = NULL;
+$answer = NULL;
 
 include "connect.php";
-if(isset($_POST['confirm'])){
-    //echo $email;
+
+function enter_answer($quesion){
+    echo "<h1> Please answer this question: <br> $quesion  </h1>";
+            // <form method = \"GET\" action=\"\">
+            //     <input type=\"text\" name = \"answer\" placeholder = \"answer\">
+            //     <input type=\"submit\" value=\"confirm\" name=\"confirm_answer\">
+            // </form>";
+    if(isset($_GET['confirm_answer'])){
+        echo "set";
+    }
+}
+
+function check_answer($answer){
+    if(connectToDB()){
+        $cmd = "SELECT * FROM answer";
+        $result = executePlainSQL($cmd);
+        $row = OCI_Fetch_Array($result, OCI_BOTH);
+        echo $row[0];
+        echo $row[1];
+    }
+}
+
+function handleConfirm(){
+    $email = $_GET["email"];
+    $_SESSION['email'] = $email;
     if(connectToDB()){
         $cmd = "SELECT * FROM SecurityInfo_Of WHERE email = '$email'";
         $result = executePlainSQL($cmd);
         $row = OCI_Fetch_Array($result, OCI_BOTH);
-        //echo $row[1];
+            //echo $row[1];
         if(stringIsEqual($row[1], $email)){
-            echo "email does not exists!";
+            echo "<h1> Email does not exists! Refresh in 3 seconds !<h1>";
+            header('refresh:3; url=findPassword.php');
         }else{
+            $answer = $row[3];
+            $_SESSION['answer'] = $answer;
+            // $cmd = "CREATE TABLE answer(email CHAR(300) NOT NULL, answer CHAR(300) NOT NULL, PRIMARY KEY (email))";
+            // executePlainSQL($cmd);
+            // echo $answer;
+            // echo var_dump($email);
+            // echo var_dump($answer);
+             enter_answer($row[2]);
+            // $cmd = "GRANT SELECT ON answer TO public";
+            // executePlainSQL($cmd);
+            // $cmd = "INSERT INTO answer VALUES('$email', '$answer')";
+            // // echo $cmd;
+            // executePlainSQL($cmd);
+        }
+    }
+    OCICommit($db_conn);
+    disconnectFromDB();
+}
+
+if (isset($_GET['confirm'])){
+    handleConfirm();
+}
+ 
+?>
+
+<form method = "GET" action="findPassword.php">
+        <li>
+            <label >Enter Your Answer and click Confirm Please:</label>
+            <input type="text" name = "answer" placeholder = "answer">
+            <input type="submit" value="submit" name="submit_answer">
+        </li>
+</form>
+
+<?php
+if(isset($_GET['submit_answer'])){
+    session_save_path('/home/r/rjin02/public_html');
+    session_start();
+    $email = $_SESSION['email'];
+    $answer = $_SESSION['answer'];
+    $getAnswer = $_GET["answer"];
+    if(stringIsEqual($getAnswer, $answer)){
+        if(connectToDB()){
+            // echo $_SESSION['email'];
+            // echo $email;
             $cmd = "SELECT * FROM SecurityInfo_Of WHERE email = '$email'";
             $result = executePlainSQL($cmd);
             $row = OCI_Fetch_Array($result, OCI_BOTH);
-            //echo $row[3];
-            session_id("abc");
-            session_start();
-            $_SESSION['email'] = $email;
-            echo $_SESSION['email'];
 
-            header("refresh:3;url=answerSecurityQuestion.php");
-            
+            $userID =  $row[0];
+
+            $cmd = "SELECT * FROM blog_users WHERE userID = $userID";
+            $result = executePlainSQL($cmd);
+            $row = OCI_Fetch_Array($result, OCI_BOTH);
+            echo "<h1> Your password is: $row[3]";
+
         }
+        
     }
 }
 ?>
