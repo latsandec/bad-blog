@@ -35,21 +35,20 @@
     </form>
   </div>
 
-  <div class="bottom-container">
+  <div class="top-container">
     <h2>User List</h2>
     <p>If you want to view the user list, press on the view botton</p>
     <form method="POST" action="admin.php"> 
       <input type="hidden" id="listUserRequest" name="listUserRequest">
-      <input type="submit" value="View" name="listuser"></p>
+      <input class = "btn" type="submit" value="View" name="listuser"></p>
     </form>
   </div>
-
-  <div class="bottom-container">
-    <h2>Community List</h2>
+  <div class="middle-container">
+  <h2>Community List</h2>
     <p>If you want to view the community list, press on the view botton</p>
     <form method="POST" action="community_list.php"> 
       <input type="hidden" id="listCommunityRequest" name="listCommunityRequest">
-      <input type="submit" value="View" name="listcomm"></p>
+      <input class = "btn" type="submit" value="View" name="listcomm"></p>
     </form>
   </div>
 
