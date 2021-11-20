@@ -31,7 +31,7 @@
     <form method="POST" action="admin.php"> 
     <input type="hidden" id="banUserRequest" name="banUserRequest">
     User ID: <input type="text" name="communityID"> <br /><br />
-    <input type="submit" value="BAN" name="ban"></p>
+    <input class = "btn" type="submit" value="BAN" name="ban"></p>
     </form>
   </div>
 
