@@ -16,10 +16,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 
-
-
-
-
 <body>
   <div class="top-container">
     <img class="top-code" src="binary-code.png" alt="code-img">
@@ -28,20 +24,37 @@
     <img class="bottom-code" src="binary-code.png" alt="code-img">
     <img class="programming-gif" src="programming.png" alt="animation-img">
   </div>
-  <div>
 
+  <div class="middle-container">
+    <h2>Enter User ID to Ban the User</h2>
+    <p>If this user violates the regualtion, press on the BAN botton to ban the user</p>
+    <form method="POST" action="admin.php"> 
+    <input type="hidden" id="banUserRequest" name="banUserRequest">
+    User ID: <input type="text" name="communityID"> <br /><br />
+    <input type="submit" value="BAN" name="ban"></p>
+    </form>
+  </div>
+
+  <div class="bottom-container">
+    <h2>User List</h2>
+    <p>If you want to view the user list, press on the view botton</p>
+    <form method="POST" action="admin.php"> 
+      <input type="hidden" id="listUserRequest" name="listUserRequest">
+      <input type="submit" value="View" name="listuser"></p>
+    </form>
+  </div>
+
+  <div class="bottom-container">
+    <h2>Community List</h2>
+    <p>If you want to view the community list, press on the view botton</p>
+    <form method="POST" action="community_list.php"> 
+      <input type="hidden" id="listCommunityRequest" name="listCommunityRequest">
+      <input type="submit" value="View" name="listcomm"></p>
+    </form>
   </div>
 
 
 </body>
 
-
-
-
-
-
-
-
-</body>
 
 </html>

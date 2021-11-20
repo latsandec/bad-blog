@@ -80,8 +80,8 @@ a:hover {
 
 .bottom-container {
   background-color:#66BFBF;
-  padding:1.8% 0 0.3% 0;
-  margin: 5% auto 0 auto;
+  /* padding:0 0 0.3% 0;
+  margin: 0 auto 0 auto; */
 }
 
 .underline {
