@@ -30,7 +30,7 @@
     <p>If this user violates the regualtion, press on the BAN botton to ban the user</p>
     <form method="POST" action="admin.php"> 
     <input type="hidden" id="banUserRequest" name="banUserRequest">
-    User ID: <input type="text" name="communityID"> <br /><br />
+    User ID: <input type="text" name="userID"> <br /><br />
     <input class = "btn" type="submit" value="BAN" name="ban"></p>
     </form>
   </div>
@@ -46,12 +46,72 @@
   <div class="middle-container">
   <h2>Community List</h2>
     <p>If you want to view the community list, press on the view botton</p>
-    <form method="POST" action="community_list.php"> 
+    <form method="POST" action="admin.php"> 
       <input type="hidden" id="listCommunityRequest" name="listCommunityRequest">
       <input class = "btn" type="submit" value="View" name="listcomm"></p>
     </form>
   </div>
 
+
+  <?php
+        include "connect.php";
+
+        function handleBanRequest() {
+            $userID = $_POST['userID'];
+            if ($userID !== '') {
+              executePlainSQL("UPDATE blog_users SET ban_status = 1 WHERE userID = $userID");
+            } else {
+              echo "<br>Please enter ID.<br>";
+            }
+          }
+        
+        function handleListCommRequest() {
+            $result = executePlainSQL("SELECT * FROM Community");
+
+            echo "<br>Community List:<br>";
+            echo "<table>";
+            echo "<tr><th>ID</th><th>Level</th></tr>";
+
+            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+                echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td></tr>"; 
+            }
+
+            echo "</table>";
+        }
+
+        function handleListUserRequest() {
+          $result = executePlainSQL("SELECT * FROM blog_users");
+
+          echo "<br>User List:<br>";
+          echo "<table>";
+          echo "<tr><th>ID</th><th>Name</th><th>BD</th><th>Ban status</th></tr>";
+
+          while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+              echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td><td>" . $row[2] . "</td><td>" . $row[4] . "</td></tr>"; 
+          }
+
+          echo "</table>";
+      }
+
+        function handlePOSTRequest() {
+            if (connectToDB()) {
+                if (array_key_exists('ban', $_POST)) {
+                    handleBanRequest();
+                } else if (array_key_exists('listcomm', $_POST)) {
+                  handleListCommRequest();
+                } else if (array_key_exists('listuser', $_POST)) {
+                  handleListUserRequest();
+              }
+
+                disconnectFromDB();
+            }
+        }
+
+		if (isset($_POST['ban']) || isset($_POST['listuser']) || isset($_POST['listcomm'])) {
+            handlePOSTRequest();
+        } 
+
+	?>
 
 </body>
 
