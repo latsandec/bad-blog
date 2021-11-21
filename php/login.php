@@ -2,6 +2,7 @@
 	include "connect.php";
 	header('Content-type:text/html; charset=utf-8');
 	// start Session
+	session_save_path('/home/r/rjin02/public_html');
 	session_start();
 	
 	// retrive user data
@@ -26,13 +27,10 @@
 				echo "Wrong username or password!";
 				exit;
 			}elseif (stringIsEqual($password,$row[3])) {
-				# 用户名和密码都正确,将用户信息存到Session中
 				$_SESSION['username'] = $username;
 				$_SESSION['islogin'] = 1;
 				echo "succeed";
-				header("refresh:0;url=index.html");
-				// 处理完附加项后跳转到登录成功的首页
-				// header('location:index.php');
+				header("refresh:0;url=blog_list.php");
 			}else {
 				# wrong password, same as the first case
 				header('refresh:3; url=login.html');

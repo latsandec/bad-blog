@@ -22,6 +22,8 @@
         </form>
         <?php
         include "connect.php";
+        session_save_path('/home/r/rjin02/public_html');
+        session_start();
         
         function handleViewRequest() {
             $communityID = $_GET['communityID'];
@@ -72,8 +74,6 @@
             }
         }
         
-        session_save_path('/home/r/rjin02/public_html');
-        session_start();
 
 		if (isset($_GET['submit']) || isset($_GET['listSubmit'])) {
             handleGETRequest();

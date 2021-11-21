@@ -14,7 +14,7 @@ function debugAlertMessage($message) {
 function executePlainSQL($cmdstr) { //takes a plain (no bound variables) SQL command and executes it
     //echo "<br>running ".$cmdstr."<br>";
     global $db_conn, $success;
-
+    
     $statement = OCIParse($db_conn, $cmdstr); 
     //There are a set of comments at the end of the file that describe some of the OCI specific functions and how they work
 
@@ -88,7 +88,7 @@ function connectToDB() {
 
     // Your username is ora_(CWL_ID) and the password is a(student number). For example, 
     // ora_platypus is the username and a12345678 is the password.
-    $db_conn = OCILogon("ora_rjin02", "a61496774", "dbhost.students.cs.ubc.ca:1522/stu");
+    $db_conn = OCILogon("ora_opkisky", "a88549647", "dbhost.students.cs.ubc.ca:1522/stu");
 
     if ($db_conn) {
         debugAlertMessage("Database is Connected");

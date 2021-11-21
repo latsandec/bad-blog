@@ -57,20 +57,37 @@
         include "connect.php";
 
         function handleBanRequest() {
+          global $db_conn;
             $userID = $_REQUEST['userID'];
             settype($userID, "integer");
-            echo var_dump($userID);
-            echo $userID;
+            //echo var_dump($userID);
+            //echo $userID;
             if ($userID !== '') {
-              $status = executePlainSQL("SELECT ban_status from blog_users where userID = $userID");
-              if ($status == 0) {
-                executePlainSQL("UPDATE blog_users SET ban_status = 1 WHERE userID = $userID");
+              $result = executePlainSQL("SELECT ban_status from blog_users where userID = '$userID'");
+              $row = OCI_Fetch_Array($result, OCI_BOTH);
+              echo $row[0];
+              if ($row[0] == 0) {
+                //echo "UPDATE blog_users SET ban_status = 1 WHERE userID = $userID";
+                $result = executePlainSQL("UPDATE blog_users SET ban_status = 1 WHERE userID = $userID");
+                OCICommit($db_conn);
+                $row = OCI_Fetch_Array($result, OCI_BOTH);
+                echo $row[0];
               } else {
-                executePlainSQL("UPDATE blog_users SET ban_status = 0 WHERE userID = $userID");
+                echo "else";
+                //executePlainSQL("UPDATE blog_users SET ban_status = 0 WHERE userID = '$userID'");
+                $result = executePlainSQL("UPDATE blog_users SET ban_status = 0 WHERE userID = $userID");
+                OCICommit($db_conn);
+                $row = OCI_Fetch_Array($result, OCI_BOTH);
+                echo $row[0];
               }
             } else {
               echo "<br>Please enter ID.<br>";
             }
+            $cmd = "select ban_status from Blog_Users where userID = 3040001";
+            $result = executePlainSQL($cmd);
+            $row = OCI_Fetch_Array($result, OCI_BOTH);
+            echo "AAAAAAAAAAAAAAA";
+            echo $row[0];
           }
         
         function handleListCommRequest() {
@@ -110,8 +127,8 @@
                 } else if (array_key_exists('listuser', $_POST)) {
                   handleListUserRequest();
               }
-
-                disconnectFromDB();
+              //OCICommit($db_conn);
+              disconnectFromDB();
             }
         }
 

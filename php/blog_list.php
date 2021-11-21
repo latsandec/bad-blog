@@ -32,6 +32,8 @@
             <input type="submit" value="Post" name="postSubmit"></p>
         </form>
         <?php
+        session_save_path('/home/r/rjin02/public_html');
+        session_start();
         include "connect.php";
         $db_conn = OCILogon("ora_rjin02", "a61496774", "dbhost.students.cs.ubc.ca:1522/stu");
 
@@ -73,8 +75,8 @@
         function handleAddBlogRequest() {
                     global $db_conn;
                     $communityID = $_SESSION['community'];
-                    $userID = 3040001;
-                    //$userID = $_SESSION['userID'];
+                    //$userID = 3040001;
+                    $userID = $_SESSION['userID'];
                     $title = $_POST['title'];
                     $content = $_POST['content'];
                     $time = date("Y-m-d H:i:s", time());
@@ -124,9 +126,10 @@
             }
         }
 
-        session_save_path('/home/r/rjin02/public_html');
-        session_start();
+        //echo $_SESSION['username'];
         if ($_SESSION['community'] == '') {
+            //echo $_SESSION['username'];
+            //echo $_SESSION['islogin'];
             echo "Error, back to community list page";
             header("refresh:3;url=community_list.php");
         } else if ($_SESSION['username'] == '') {
