@@ -29,7 +29,7 @@ INSERT INTO SecurityInfo_Of    VALUES(3040004,'jim4@gmail.com','What is the favo
 INSERT INTO SecurityInfo_Of    VALUES(3040005,'jim5@gmail.com','What is the favorite subject?','computer science');
 INSERT INTO SecurityInfo_Of    VALUES(3040006,'jim6@gmail.com','What is the favorite weather?','snow');
 INSERT INTO SecurityInfo_Of    VALUES(3040007,'jim7@gmail.com','What is the favorite flower?','rose');
-INSERT INTO SecurityInfo_Of    VALUES(3040008,'jim8@gmail.com','What is the favorite weather?','sunny')
+INSERT INTO SecurityInfo_Of    VALUES(3040008,'jim8@gmail.com','What is the favorite weather?','sunny');
 
 INSERT INTO Community    VALUES(3045001, 1);
 INSERT INTO Community    VALUES(3045002, 1);

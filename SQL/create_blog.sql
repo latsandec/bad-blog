@@ -7,10 +7,13 @@ CREATE TABLE blog_users(
     PRIMARY KEY(userID)
 );
 
+GRANT SELECT ON blog_users TO public;
+
 CREATE TABLE Birthday_Age(
     birthday CHAR(10),
     age INTEGER,
     PRIMARY KEY(birthday)
+    -- FOREIGN KEY(birthday) REFERENCES blog_users(birthday)
 );
 
 CREATE TABLE VIP(
@@ -114,4 +117,19 @@ CREATE TABLE About(
     FOREIGN KEY(communityID) REFERENCES Community(communityID) ON DELETE CASCADE,
     FOREIGN KEY(topic_name) REFERENCES Topic(topic_name) ON DELETE CASCADE
 );
-select table_name from user_tables;
+-- select table_name from user_tables;
+
+-- INSERT INTO blog_users    VALUES(1,'a','2000-02-01','abc',0);
+
+-- select * from blog_users where userID = 1 and userPassword = 'abc';
+-- select * from blog_users where  userName = 'a' and userPassword = 'abc';
+-- INSERT INTO blog_users    VALUES(2,'b','2000-01-01','a',0)
+-- INSERT INTO blog_users    VALUES(3,'b','2000-01-01','a',0)
+-- INSERT INTO SecurityInfo_Of    VALUES(3,'jim1@gmail.com','What is the favorite food?','apple');
+-- create table temp(
+--     answer CHAR(250) PRIMARY KEY
+-- );
+
+-- INSERT INTO temp    VALUES('a');
+-- SELECT * FROM SecurityInfo_Of WHERE email = 'jim1@gmail.com';
+-- SELECT * FROM blog_users WHERE userID = 3040001;
