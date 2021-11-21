@@ -10,6 +10,6 @@ drop table UID_CID_DATETIME;
 drop table Comment_Create_Follows;
 drop table BID;
 drop table Topic;
-drop table blog_users;
+drop table Blog_Users;
 drop table Community;
 select table_name from user_tables;

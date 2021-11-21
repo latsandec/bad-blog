@@ -1,4 +1,4 @@
-CREATE TABLE blog_users(
+CREATE TABLE Blog_Users(
     userID INTEGER,
     userName CHAR(250) NOT NULL,
     birthday CHAR(10),
@@ -7,13 +7,13 @@ CREATE TABLE blog_users(
     PRIMARY KEY(userID)
 );
 
-GRANT SELECT ON blog_users TO public;
+-- GRANT SELECT ON Blog_Users TO public;
 
 CREATE TABLE Birthday_Age(
     birthday CHAR(10),
     age INTEGER,
     PRIMARY KEY(birthday)
-    -- FOREIGN KEY(birthday) REFERENCES blog_users(birthday)
+    -- FOREIGN KEY(birthday) REFERENCES Blog_Users(birthday)
 );
 
 CREATE TABLE VIP(
@@ -21,7 +21,7 @@ CREATE TABLE VIP(
     vip_level INTEGER NOT NULL,
     preferred_color CHAR(250),
     PRIMARY KEY(vipID),
-    FOREIGN KEY(vipID) REFERENCES blog_users(userID) ON DELETE CASCADE
+    FOREIGN KEY(vipID) REFERENCES Blog_Users(userID) ON DELETE CASCADE
 );
 
 CREATE TABLE SecurityInfo_Of(
@@ -30,7 +30,7 @@ CREATE TABLE SecurityInfo_Of(
     security_question CHAR(250) NOT NULL,
     answer CHAR(250) NOT NULL,
     PRIMARY KEY(email),
-    FOREIGN KEY(userID) REFERENCES blog_users(userID) ON DELETE CASCADE
+    FOREIGN KEY(userID) REFERENCES Blog_Users(userID) ON DELETE CASCADE
 );
 
 CREATE TABLE Community(
@@ -52,7 +52,7 @@ CREATE TABLE Ban(
     userID INTEGER,
     adminID INTEGER,
     PRIMARY KEY(userID,adminID),
-    FOREIGN KEY(userID) REFERENCES blog_users(userID) ON DELETE CASCADE,
+    FOREIGN KEY(userID) REFERENCES Blog_Users(userID) ON DELETE CASCADE,
     FOREIGN KEY(adminID) REFERENCES Admin_Monitor(adminID) ON DELETE CASCADE
 );
 
@@ -66,7 +66,7 @@ CREATE TABLE Subscribe(
     userID INTEGER,
     communityID INTEGER,
     PRIMARY KEY(userID,communityID),
-    FOREIGN KEY(userID) REFERENCES blog_users(userID) ON DELETE CASCADE,
+    FOREIGN KEY(userID) REFERENCES Blog_Users(userID) ON DELETE CASCADE,
     FOREIGN KEY(communityID) REFERENCES Community(communityID) ON DELETE CASCADE
 );
 
@@ -85,7 +85,7 @@ CREATE TABLE UID_CID_DATETIME(
     DATETIME_record DATE,
     title CHAR(250) NOT NULL,
     PRIMARY KEY(userID,communityID,DATETIME_record),
-    FOREIGN KEY(userID) REFERENCES blog_users(userID) ON DELETE CASCADE,
+    FOREIGN KEY(userID) REFERENCES Blog_Users(userID) ON DELETE CASCADE,
     FOREIGN KEY(communityID) REFERENCES Community(communityID) ON DELETE CASCADE
 );
 
@@ -95,7 +95,7 @@ CREATE TABLE BID(
     communityID INTEGER NOT NULL,
     DATETIME_record DATE NOT NULL,
     PRIMARY KEY(blogId),
-    FOREIGN KEY(userID) REFERENCES blog_users(userID) ON DELETE CASCADE,
+    FOREIGN KEY(userID) REFERENCES Blog_Users(userID) ON DELETE CASCADE,
     FOREIGN KEY(communityID) REFERENCES Community(communityID) ON DELETE CASCADE
 );
 
@@ -106,7 +106,7 @@ CREATE TABLE Comment_Create_Follows(
     content CHAR(250) NOT NULL,
     PRIMARY KEY(comment_order,blogID),
     FOREIGN KEY(blogID) REFERENCES BID(blogID) ON DELETE CASCADE,
-    FOREIGN KEY(userID) REFERENCES blog_users(userID) ON DELETE CASCADE
+    FOREIGN KEY(userID) REFERENCES Blog_Users(userID) ON DELETE CASCADE
 );
 
 
@@ -119,12 +119,12 @@ CREATE TABLE About(
 );
 -- select table_name from user_tables;
 
--- INSERT INTO blog_users    VALUES(1,'a','2000-02-01','abc',0);
+-- INSERT INTO Blog_Users    VALUES(1,'a','2000-02-01','abc',0);
 
--- select * from blog_users where userID = 1 and userPassword = 'abc';
--- select * from blog_users where  userName = 'a' and userPassword = 'abc';
--- INSERT INTO blog_users    VALUES(2,'b','2000-01-01','a',0)
--- INSERT INTO blog_users    VALUES(3,'b','2000-01-01','a',0)
+-- select * from Blog_Users where userID = 1 and userPassword = 'abc';
+-- select * from Blog_Users where  userName = 'a' and userPassword = 'abc';
+-- INSERT INTO Blog_Users    VALUES(2,'b','2000-01-01','a',0)
+-- INSERT INTO Blog_Users    VALUES(3,'b','2000-01-01','a',0)
 -- INSERT INTO SecurityInfo_Of    VALUES(3,'jim1@gmail.com','What is the favorite food?','apple');
 -- create table temp(
 --     answer CHAR(250) PRIMARY KEY
@@ -132,4 +132,4 @@ CREATE TABLE About(
 
 -- INSERT INTO temp    VALUES('a');
 -- SELECT * FROM SecurityInfo_Of WHERE email = 'jim1@gmail.com';
--- SELECT * FROM blog_users WHERE userID = 3040001;
+-- SELECT * FROM Blog_Users WHERE userID = 3040001;
