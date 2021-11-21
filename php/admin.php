@@ -31,7 +31,7 @@
     <form method="POST" action="admin.php"> 
     <input type="hidden" id="banUserRequest" name="banUserRequest">
     User ID: <input type="text" name="userID"> <br /><br />
-    <input class = "btn" type="submit" value="BAN" name="ban"></p>
+    <input class = "btn" type="submit" value="Change Ban Status" name="ban"></p>
     </form>
   </div>
 
@@ -57,9 +57,17 @@
         include "connect.php";
 
         function handleBanRequest() {
-            $userID = $_POST['userID'];
+            $userID = $_REQUEST['userID'];
+            settype($userID, "integer");
+            echo var_dump($userID);
+            echo $userID;
             if ($userID !== '') {
-              executePlainSQL("UPDATE blog_users SET ban_status = 1 WHERE userID = $userID");
+              $status = executePlainSQL("SELECT ban_status from blog_users where userID = $userID");
+              if ($status == 0) {
+                executePlainSQL("UPDATE blog_users SET ban_status = 1 WHERE userID = $userID");
+              } else {
+                executePlainSQL("UPDATE blog_users SET ban_status = 0 WHERE userID = $userID");
+              }
             } else {
               echo "<br>Please enter ID.<br>";
             }
