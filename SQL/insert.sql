@@ -80,12 +80,12 @@ INSERT INTO Subscribe    VALUES(3040007,3045004);
 INSERT INTO Subscribe    VALUES(3040008,3045002);
 
 
-INSERT INTO CID_DATETIME_Title    VALUES(3045001,0001-01-01 00:00:00.0000001,'New Anime Song Release Today!','This one is so cool.');
-INSERT INTO CID_DATETIME_Title    VALUES(3045002,0001-01-01 00:00:00.0000002,'Where to find the piano version of this song?','Thanks for any help');
-INSERT INTO CID_DATETIME_Title    VALUES(3045003,0001-01-01 00:00:00.0000003,'I tried an easy recipe but...','I do not know why everything went wrong..');
-INSERT INTO CID_DATETIME_Title    VALUES(3045004,0001-01-01 00:00:00.0000004,'Got ticket for World Cup!!','So excited!!');
-INSERT INTO CID_DATETIME_Title    VALUES(3045005,0001-01-01 00:00:00.9999999,'Finished my first personal project','I spent a month on it');
-INSERT INTO CID_DATETIME_Title    VALUES(3045006,0001-01-01 00:00:01.0000000,'Got Fired from Amazon','still have a lot to learn...');
+INSERT INTO CID_DATETIME_Title    VALUES(3045001,to_date(0001-01-01 00:00:00.0000001,'YYYY-MM-DD HH24:MI:SS'),'New Anime Song Release Today!','This one is so cool.');
+INSERT INTO CID_DATETIME_Title    VALUES(3045002,to_date(0001-01-01 00:00:00.0000002,'YYYY-MM-DD HH24:MI:SS'),'Where to find the piano version of this song?','Thanks for any help');
+INSERT INTO CID_DATETIME_Title    VALUES(3045003,to_date(0001-01-01 00:00:00.0000003,'YYYY-MM-DD HH24:MI:SS'),'I tried an easy recipe but...','I do not know why everything went wrong..');
+INSERT INTO CID_DATETIME_Title    VALUES(3045004,to_date(0001-01-01 00:00:00.0000004,'YYYY-MM-DD HH24:MI:SS'),'Got ticket for World Cup!!','So excited!!');
+INSERT INTO CID_DATETIME_Title    VALUES(3045005,to_date(0001-01-01 00:00:00.9999999,'YYYY-MM-DD HH24:MI:SS'),'Finished my first personal project','I spent a month on it');
+INSERT INTO CID_DATETIME_Title    VALUES(3045006,to_date(0001-01-01 00:00:01.0000000,'YYYY-MM-DD HH24:MI:SS'),'Got Fired from Amazon','still have a lot to learn...');
 
 INSERT INTO UID_CID_DATETIME    VALUES(3040001,3045001,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'New Anime Song Release Today!');
 INSERT INTO UID_CID_DATETIME    VALUES(3040002,3045002,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Where to find the piano version of this song?');
@@ -94,16 +94,16 @@ INSERT INTO UID_CID_DATETIME    VALUES(3040004,3045004,to_date('0001-01-01 00:00
 INSERT INTO UID_CID_DATETIME    VALUES(3040005,3045005,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Finished my first personal project');
 INSERT INTO UID_CID_DATETIME    VALUES(3040006,3045005,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Got Fired from Amazon');
 
-INSERT INTO BID    VALUES(3042001,3040001,3045001,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
-INSERT INTO BID    VALUES(3042002,3040002,3045002,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
-INSERT INTO BID    VALUES(3042003,3040003,3045003,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
-INSERT INTO BID    VALUES(3042004,3040004,3045004,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
-INSERT INTO BID    VALUES(3042005,3040005,3045005,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
-INSERT INTO BID    VALUES(3042006,3040005,3045006,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO BID    VALUES(3042001,3040001,3045001,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO BID    VALUES(3042002,3040002,3045002,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO BID    VALUES(3042003,3040003,3045003,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO BID    VALUES(3042004,3040004,3045004,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO BID    VALUES(3042005,3040005,3045005,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO BID    VALUES(3042006,3040005,3045006,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
 
-INSERT INTO Comment_Create_Follows    VALUES(1,3042001,3040005,'Amazing!');
-INSERT INTO Comment_Create_Follows    VALUES(1,3042002,3040008,'check this link');
-INSERT INTO Comment_Create_Follows    VALUES(1,3042003,3040002,'lol');
-INSERT INTO Comment_Create_Follows    VALUES(1,3042004,3040005,'I also want one!!');
-INSERT INTO Comment_Create_Follows    VALUES(1,3042006,3040006,'Sorry to hear that');
-INSERT INTO Comment_Create_Follows    VALUES(2,3042006,3040004,'You will find a better job!');
+-- INSERT INTO Comment_Create_Follows    VALUES(1,3042001,3040005,'Amazing!');
+-- INSERT INTO Comment_Create_Follows    VALUES(1,3042002,3040008,'check this link');
+-- INSERT INTO Comment_Create_Follows    VALUES(1,3042003,3040002,'lol');
+-- INSERT INTO Comment_Create_Follows    VALUES(1,3042004,3040005,'I also want one!!');
+-- INSERT INTO Comment_Create_Follows    VALUES(1,3042006,3040006,'Sorry to hear that');
+-- INSERT INTO Comment_Create_Follows    VALUES(2,3042006,3040004,'You will find a better job!');
