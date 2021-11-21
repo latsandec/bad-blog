@@ -22,7 +22,6 @@
         </form>
         <?php
         include "connect.php";
-        session_start();
         
         function handleViewRequest() {
             $communityID = $_GET['communityID'];
@@ -72,8 +71,10 @@
                 disconnectFromDB();
             }
         }
-
+        
+        session_save_path('/home/o/opkisky/public_html');
         session_start();
+
 		if (isset($_GET['submit']) || isset($_GET['listSubmit'])) {
             handleGETRequest();
         } 
