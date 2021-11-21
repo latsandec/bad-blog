@@ -29,7 +29,6 @@
             <input type="hidden" id="addBlogRequest" name="addBlogRequest">
             title: <input type="text" name="title"> <br /><br />
             content: <input type="text" name="content"> <br /><br />
-            time(YYYY-MM-DD HH:MI:SS): <input type="text" name="time"> <br /><br />
             <input type="submit" value="Post" name="postSubmit"></p>
         </form>
         <?php
@@ -45,7 +44,8 @@
                 $result = executePlainSQL("SELECT * FROM BID WHERE blogId = $blogID AND communityID = $communityID");
                 $row = OCI_Fetch_Array($result, OCI_BOTH); 
                 if ($row[0]){
-                    echo " Blog ID " . $row[0] . " posted by User ID " . $row[1];
+                    $_SESSION['blog'] = $row[0];
+                    header("refresh:0;url=blog_detail.php");
                 } else {
                     echo "<br>Result not found.<br>";
                 }
@@ -73,11 +73,10 @@
         function handleAddBlogRequest() {
             global $db_conn;
             $communityID = $_SESSION['community'];
-            $userID = 3040001;
-            //$userID = $_SESSION['userID'];
+            $userID = $_SESSION['userID'];
             $title = $_POST['title'];
             $content = $_POST['content'];
-            $time = $_POST['time'];
+            $time = date("Y-m-d H:i:s", time());
             $total = oci_fetch_row(executePlainSQL("SELECT Count(*) FROM BID"));
             $blogID = $total[0] + 3042001;
 
@@ -116,11 +115,14 @@
             }
         }
 
-        session_save_path('/home/o/opkisky/public_html');
+        session_save_path('/home/r/rjin02/public_html');
         session_start();
         if ($_SESSION['community'] == '') {
             echo "Error, back to community list page";
             header("refresh:3;url=community_list.php");
+        } else if ($_SESSION['username'] == '') {
+            echo "Error, back to login page";
+            header("refresh:3;url=login.html");
         }
 		if (isset($_GET['detailSubmit']) || isset($_GET['refreshSubmit'])) {
             handleGETRequest();

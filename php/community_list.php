@@ -72,7 +72,7 @@
             }
         }
         
-        session_save_path('/home/o/opkisky/public_html');
+        session_save_path('/home/r/rjin02/public_html');
         session_start();
 
 		if (isset($_GET['submit']) || isset($_GET['listSubmit'])) {
