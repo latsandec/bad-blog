@@ -45,7 +45,7 @@
                 $result = executePlainSQL("SELECT * FROM BID WHERE blogId = $blogID AND communityID = $communityID");
                 $row = OCI_Fetch_Array($result, OCI_BOTH); 
                 if ($row[0]){
-                    echo " Blog ID " . $row[0] . " posted by User " . $row[1];
+                    echo " Blog ID " . $row[0] . " posted by User ID " . $row[1];
                 } else {
                     echo "<br>Result not found.<br>";
                 }
