@@ -71,27 +71,36 @@
         
 
         function handleAddBlogRequest() {
-            global $db_conn;
-            $communityID = $_SESSION['community'];
-            $userID = $_SESSION['userID'];
-            $title = $_POST['title'];
-            $content = $_POST['content'];
-            $time = date("Y-m-d H:i:s", time());
-            $total = oci_fetch_row(executePlainSQL("SELECT Count(*) FROM BID"));
-            $blogID = $total[0] + 3042001;
+                    global $db_conn;
+                    $communityID = $_SESSION['community'];
+                    $userID = 3040001;
+                    //$userID = $_SESSION['userID'];
+                    $title = $_POST['title'];
+                    $content = $_POST['content'];
+                    $time = date("Y-m-d H:i:s", time());
+                    $total = oci_fetch_row(executePlainSQL("SELECT Count(*) FROM BID"));
+                    if ($total[0] == 1) {
+                        $newest = oci_fetch_row(executePlainSQL("SELECT blogId FROM BID"));
+                        $order = $newest[0] + 1;
+                    } else {
+                        $newest = oci_fetch_row(executePlainSQL("SELECT blogId FROM BID B2 WHERE NOT EXISTS
+                        (SELECT * FROM BID B1 WHERE B1.blogId > B2.blogId)"));
+                        $order = $newest[0] + 1;
+                    }
+                    $blogID = $order;
 
-            if ($title !== '' && $content !== '' && $time !== '') {
-                executePlainSQL("INSERT INTO CID_DATETIME_Title    VALUES($communityID,to_date('$time','YYYY-MM-DD HH24:MI:SS'), '$title', '$content')");
-                OCICommit($db_conn);
-                executePlainSQL("INSERT INTO UID_CID_DATETIME    VALUES($userID, $communityID, to_date('$time','YYYY-MM-DD HH24:MI:SS'), '$title')");
-                OCICommit($db_conn);
-                executePlainSQL("INSERT INTO BID    VALUES($blogID, $userID, $communityID, to_date('$time','YYYY-MM-DD HH24:MI:SS'))");
-                OCICommit($db_conn);
-                echo "The blog has been posted successfully";
-            } else {
-                echo "<br>Make sure to input all title content and time.<br>";
-            }
-        }
+                    if ($title !== '' && $content !== '' && $time !== '') {
+                        executePlainSQL("INSERT INTO CID_DATETIME_Title    VALUES($communityID,to_date('$time','YYYY-MM-DD HH24:MI:SS'), '$title', '$content')");
+                        OCICommit($db_conn);
+                        executePlainSQL("INSERT INTO UID_CID_DATETIME    VALUES($userID, $communityID, to_date('$time','YYYY-MM-DD HH24:MI:SS'), '$title')");
+                        OCICommit($db_conn);
+                        executePlainSQL("INSERT INTO BID    VALUES($blogID, $userID, $communityID, to_date('$time','YYYY-MM-DD HH24:MI:SS'))");
+                        OCICommit($db_conn);
+                        echo "The blog has been posted successfully";
+                    } else {
+                        echo "<br>Make sure to input all title content and time.<br>";
+                    }
+                }
 
         function handleGETRequest() {
             if (connectToDB()) {

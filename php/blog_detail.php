@@ -83,23 +83,30 @@
         }
 
         function handleAddCommentRequest() {
-            global $db_conn;
-            $blogID = $_SESSION['blog'];
-            $userID = $_SESSION['userID'];
-            $content = $_POST['content'];
-            $total = oci_fetch_row(executePlainSQL("SELECT comment_order FROM Comment_Create_Follows C2 WHERE NOT EXISTS
-            (SELECT * FROM Comment_Create_Follows C1 WHERE C1.comment_order > C2.comment_order OR C2.blogID <> $blogID)"));
-            $order = $total[0] + 1;
+                    global $db_conn;
+                    $blogID = $_SESSION['blog'];
+                    $userID = 3040001;
+                    //$userID = $_SESSION['userID'];
+                    $content = $_POST['content'];
+                    $total = oci_fetch_row(executePlainSQL("SELECT Count(*) FROM Comment_Create_Follows WHERE blogID = $blogID"));
+                    if ($total[0] == 1) {
+                        $newest = oci_fetch_row(executePlainSQL("SELECT comment_order FROM Comment_Create_Follows WHERE blogID = $blogID"));
+                        $order = $newest[0] + 1;
+                    } else {
+                        $newest = oci_fetch_row(executePlainSQL("SELECT comment_order FROM Comment_Create_Follows C2 WHERE NOT EXISTS
+                        (SELECT * FROM Comment_Create_Follows C1 WHERE C1.comment_order > C2.comment_order OR C2.blogID <> $blogID)"));
+                        $order = $newest[0] + 1;
+                    }
 
-            if ($content !== '') {
-                executePlainSQL("INSERT INTO Comment_Create_Follows    VALUES($order, $blogID, $userID, '$content')");
-                OCICommit($db_conn);
-                echo "The comment has been posted successfully";
-                header("refresh:2;url=blog_detail.php");
-            } else {
-                echo "<br>Make sure to input the content.<br>";
-            }
-        }
+                    if ($content !== '') {
+                        executePlainSQL("INSERT INTO Comment_Create_Follows    VALUES($order, $blogID, $userID, '$content')");
+                        OCICommit($db_conn);
+                        echo "The comment has been posted successfully";
+                        header("refresh:2;url=blog_detail.php");
+                    } else {
+                        echo "<br>Make sure to input the content.<br>";
+                    }
+                }
 
         function handlePOSTRequest() {
             if (connectToDB()) {
