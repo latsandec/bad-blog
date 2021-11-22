@@ -1,27 +1,38 @@
-<html>
-    <head>
-        <title>Blog List</title>
-    </head>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Blog List</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=MonteCarlo&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
 
     <body>
         <h2>Search</h2>
-        <p>enter the blog id to view detail</p>
+        <p>Enter the blog id to view detail</p>
         <form method="GET" action="blog_list.php"> 
             <input type="hidden" id="blogDetailRequest" name="blogDetailRequest">
             ID: <input type="text" name="blogID"> <br /><br />
-            <input type="submit" value="View" name="detailSubmit"></p>
+            <input class = "btn" type="submit" value="View" name="detailSubmit"></p>
         </form>
 
-        <hr />
 
         <h2>Blog List</h2>
         <p>If you want to refresh the blog list, press on the refresh botton</p>
         <form method="GET" action="blog_list.php"> 
             <input type="hidden" id="refreshRequest" name="refreshRequest">
-            <input type="submit" value="Refresh" name="refreshSubmit"></p>
+            <input class = "btn" type="submit" value="Refresh" name="refreshSubmit"></p>
         </form>
 
-        <hr />
 
         <h2>New Post</h2>
         <p>Enter title and content and click Post to create a new blog</p>
@@ -29,7 +40,7 @@
             <input type="hidden" id="addBlogRequest" name="addBlogRequest">
             title: <input type="text" name="title"> <br /><br />
             content: <input type="text" name="content"> <br /><br />
-            <input type="submit" value="Post" name="postSubmit"></p>
+            <input class = "btn" type="submit" value="Post" name="postSubmit"></p>
         </form>
         <?php
         session_save_path('/home/r/rjin02/public_html');

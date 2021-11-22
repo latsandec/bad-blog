@@ -1,23 +1,34 @@
-<html>
-    <head>
-        <title>Blog Detail</title>
-    </head>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Blog Detail</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=MonteCarlo&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
 
     <body>
-        <p>Enter content and click Post to create a new comment</p>
+        <h2>Enter content and click Post to create a new comment</h2>
         <form method="POST" action="blog_detail.php"> 
             <input type="hidden" id="addCommentRequest" name="addCommentRequest">
             <input type="text" name="content"> <br /><br />
-            <input type="submit" value="Post" name="postSubmit"></p>
+            <input class = "btn" type="submit" value="Post" name="postSubmit"></p>
         </form>
 
-        <hr />
-
-        <p>Enter the comment # to delete a comment, 0 represent the blog itself </p>
+        <h2>Enter the comment # to delete a comment, 0 represent the blog itself </h2>
         <form method="POST" action="blog_detail.php"> 
             <input type="hidden" id="deleteRequest" name="deleteRequest">
             <input type="text" name="order"> <br /><br />
-            <input type="submit" value="Delete" name="deleteSubmit"></p>
+            <input class = "btn" type="submit" value="Delete" name="deleteSubmit"></p>
         </form>
         <small>Note: only the sender can delete their own comment or blog</small>
         <?php

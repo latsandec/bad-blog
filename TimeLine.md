@@ -25,7 +25,7 @@ We laterly change our plan. Now one group member is resposible for a specific pa
 
 
 
-Annie: admin(update Ban foreiner key), topic list(group,having,division)
+Annie: admin, topic list
 
 Cheryl: community, blog list, blog
 

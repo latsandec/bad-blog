@@ -95,6 +95,12 @@ a:hover {
   margin: 10px auto 10px auto;
 }
 
+.community {
+  max-height:10%;
+  max-width:10%;
+
+}
+
 
 
 .top-code {

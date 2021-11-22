@@ -19,13 +19,12 @@
 <body>
     
 <form method = "GET" action="findPassword.php">
-    <h1> Find Password
-        <li>
-            <label >Enter Your Email and Click Confirm Please:</label>
+    <h2> Find Password</h2>
+
+            <p >Enter Your Email and Click Confirm Please:</p>
             <input type="text" name = "email" placeholder = "email">
-            <input type="submit" value="confirm" name="confirm">
-        </li>
-    </h1>
+            <input class = "btn" type="submit" value="confirm" name="confirm">
+    
 </form>
 
 
@@ -96,11 +95,9 @@ if (isset($_GET['confirm'])){
 ?>
 
 <form method = "GET" action="findPassword.php">
-        <li>
-            <label >Enter Your Answer and click Confirm Please:</label>
+            <p >Enter Your Answer and click Confirm Please:</p>
             <input type="text" name = "answer" placeholder = "answer">
-            <input type="submit" value="submit" name="submit_answer">
-        </li>
+            <input class = "btn" type="submit" value="submit" name="submit_answer">
 </form>
 
 <?php
