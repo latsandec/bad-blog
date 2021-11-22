@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Powerful Admin</title>
+  <title>Topics you Love</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,28 +26,98 @@
   </div>
 
   <div class="middle-container">
-    <h2>Enter User ID to Ban the User</h2>
-    <p>If this user violates the regualtion, press on the BAN botton to ban the user</p>
-    <form method="POST" action="admin.php"> 
-    <input type="hidden" id="banUserRequest" name="banUserRequest">
-    User ID: <input type="text" name="userID"> <br /><br />
-    <input class = "btn" type="submit" value="Change Ban Status" name="ban"></p>
+    <h2>Enter Topic to Find Community You Love</h2>
+    <p>Ex. you can search "Anime" "Cook" "Music" "Sports" "IT" where level is greater than</p>
+    <form method="POST" action="topic_list.php"> 
+    <input type="hidden" id="showTopicCommunityRequest" name="showTopicCommunityRequest">
+    Interested Topic: <input type="text" name="Topic"> <br /><br />
+    <input class = "btn" type="submit" value="Search" name="searchtopic"></p>
     </form>
   </div>
 
   <div class="top-container">
-    <h2>User List</h2>
-    <p>If you want to view the user list, press on the view botton</p>
-    <form method="POST" action="admin.php"> 
-      <input type="hidden" id="listUserRequest" name="listUserRequest">
-      <input class = "btn" type="submit" value="View" name="listuser"></p>
+    <h2>Hunt Community with Level</h2>
+    <p>Ex. you can find out community where level is greater than you expect and group by topics</p>
+    <form method="POST" action="topic_list.php"> 
+    <input type="hidden" id="showLevelCommunityRequest" name="showLevelCommunityRequest">
+    Level At Least: <input type="text" name="Level"> <br /><br />
+    <input class = "btn" type="submit" value="Search" name="searchlevel"></p>
     </form>
   </div>
-  <div class="middle-container">
-  <h2>Community List</h2>
-    <p>If you want to view the community list, press on the view botton</p>
-    <form method="POST" action="admin.php"> 
-      <input type="hidden" id="listCommunityRequest" name="listCommunityRequest">
-      <input class = "btn" type="submit" value="View" name="listcomm"></p>
-    </form>
-  </div>
+
+  <?php
+        include "connect.php";
+
+        function handleSearchTopicRequest() {
+            global $db_conn;
+            $topic = $_REQUEST['Topic'];
+
+            if ($topic !== '') {
+                $result = executePlainSQL("SELECT C.CommunityID, C.community_level FROM Community C
+                                            Where NOT EXISTS (
+                                                (SELECT CO.CommunityID FROM Community CO) 
+                                            EXCEPT 
+                                            (SELECT A.CommunityID FROM About A WHERE 
+                                            A.CommunityID = CO.CommunityID AND A.topic_name = $topic)
+                                            )" ); 
+                                            //list community that have the topic
+                                            //community that except with the topic
+                                            //community that with the topic
+            } else {
+                echo "<br>Please enter topic.<br>";
+            }
+
+            echo "<br>Community List:<br>";
+            echo "<table>";
+            echo "<tr><th>ID</th><th>Level</th></tr>";
+
+            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+                echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td></tr>"; 
+            }
+
+            echo "</table>";
+        }
+
+        function handleCommunityLevelRequest() {
+            global $db_conn;
+            // $topic = $_REQUEST['Topic'];
+            $level = $_REQUEST['Level'];
+            settype($level, "integer");
+
+            if ($level !== '') {
+                $result = executePlainSQL("SELECT C.CommunityID,C.community_level 
+                                            from Community C
+                                            GROUP BY C.topic_name 
+                                            Having C.community_level > '$level'" );
+            } else {
+                echo "<br>Please enter level.<br>";
+            }
+
+            echo "<br>Community List:<br>";
+            echo "<table>";
+            echo "<tr><th>ID</th><th>Level</th></tr>";
+
+            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+                echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td></tr>"; 
+            }
+
+            echo "</table>";
+        }
+
+        function handlePOSTRequest() {
+            if (connectToDB()) {
+                if (array_key_exists('searchtopic',$_POST)) {
+                    handleSearchTopicRequest();
+                }
+                if (array_key_exists('searchlevel',$_POST)) {
+                    handleCommunityLevelRequest();
+                }
+                disconnectFromDB();
+            }
+        }
+
+        if (isset($_POST['searchtopic']) || isset($_POST['searchlevel'])) {
+            handlePOSTRequest();
+        }
+    
+    ?>
