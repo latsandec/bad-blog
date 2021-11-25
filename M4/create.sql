@@ -1,3 +1,5 @@
+-- lastest version
+
 CREATE TABLE Blog_Users(
     userID INTEGER,
     userName CHAR(250) NOT NULL,
@@ -62,16 +64,33 @@ CREATE TABLE Subscribe(
     FOREIGN KEY(communityID) REFERENCES Community(communityID) ON DELETE CASCADE
 );
 
-CREATE TABLE Blog_Create_In(
+CREATE TABLE CID_DATETIME_Title(
+    communityID INTEGER,
+    DATETIME_record DATE,
+    title CHAR(250),
+    content CHAR(250) NOT NULL,
+    PRIMARY KEY(communityID,DATETIME_record,title),
+    FOREIGN KEY(communityID) REFERENCES Community(communityID) ON DELETE CASCADE
+);
+
+CREATE TABLE UID_CID_DATETIME(
+    userID INTEGER,
+    communityID INTEGER,
+    DATETIME_record DATE,
+    title CHAR(250) NOT NULL,
+    PRIMARY KEY(userID,communityID,DATETIME_record),
+    FOREIGN KEY(userID) REFERENCES Blog_Users(userID) ON DELETE CASCADE, 
+    FOREIGN KEY(communityID, DATETIME_record, title) REFERENCES CID_DATETIME_Title(communityID, DATETIME_record, title) ON DELETE CASCADE
+);
+
+CREATE TABLE BID(
     blogId INTEGER,
     userID INTEGER NOT NULL,
-    blogTime DATE NOT NULL,
     communityID INTEGER NOT NULL,
-    title CHAR(250) NOT NULL,
-    content CHAR(250) NOT NULL,
+    DATETIME_record DATE NOT NULL,
     PRIMARY KEY(blogId),
-    FOREIGN KEY(userID) REFERENCES Blog_Users(userID),
-    FOREIGN KEY(communityID) REFERENCES Community(communityID)
+    -- FOREIGN KEY(userID) REFERENCES Blog_Users(userID) ON DELETE CASCADE,
+    FOREIGN KEY(userID,communityID, DATETIME_record) REFERENCES UID_CID_DATETIME(userID, communityID, DATETIME_record) ON DELETE CASCADE
 );
 
 CREATE TABLE Comment_Create_Follows(
@@ -80,7 +99,7 @@ CREATE TABLE Comment_Create_Follows(
     userID INTEGER NOT NULL,
     content CHAR(250) NOT NULL,
     PRIMARY KEY(comment_order,blogID),
-    FOREIGN KEY(blogID) REFERENCES Blog_Create_In(blogId) ON DELETE CASCADE,
+    FOREIGN KEY(blogID) REFERENCES BID(blogId) ON DELETE CASCADE,
     FOREIGN KEY(userID) REFERENCES Blog_Users(userID) ON DELETE CASCADE
 );
 
@@ -92,25 +111,3 @@ CREATE TABLE About(
     FOREIGN KEY(communityID) REFERENCES Community(communityID) ON DELETE CASCADE,
     FOREIGN KEY(topic_name) REFERENCES Topic(topic_name) ON DELETE CASCADE
 );
-
-
--- INSERT INTO Blog_Users    VALUES(1,'a','2000-02-01','abc',0);
-
--- select * from Blog_Users where userID = 1 and userPassword = 'abc';
--- select * from Blog_Users where  userName = 'a' and userPassword = 'abc';
--- INSERT INTO Blog_Users    VALUES(2,'b','2000-01-01','a',0)
--- INSERT INTO Blog_Users    VALUES(3,'b','2000-01-01','a',0)
--- INSERT INTO SecurityInfo_Of    VALUES(3,'jim1@gmail.com','What is the favorite food?','apple');
--- create table temp(
---     answer CHAR(250) PRIMARY KEY
--- );
-
--- INSERT INTO temp    VALUES('a');
--- SELECT * FROM SecurityInfo_Of WHERE email = 'jim1@gmail.com';
--- SELECT * FROM Blog_Users WHERE userID = 3040001;
--- select ban_status from Blog_Users where userID = 3040001;
--- select userID
--- from Blog_Users
--- where userID in (select vipID from VIP where vip_level > 5)
--- group by ban_status
--- -- having 
