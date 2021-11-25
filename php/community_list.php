@@ -45,11 +45,11 @@
   </div>
 
   <div class="middle-container">
-      <h2>Topics</h2>
-      <p>If you want to view the topic list, press on the button</p>
+      <h2>Go To Topics</h2>
+      <p>If you want to view the topic page, press on the button</p>
       <form method="GET" action="community_list.php">
         <input type="hidden" id="topicRequest" name="topicRequest">
-        <input class = "btn" type="submit" value="View" name="topicSubmit"></p>
+        <input class = "btn" type="submit" value="Go" name="topicSubmit"></p>
       </form>
     </div>
 
