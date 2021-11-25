@@ -37,22 +37,34 @@ SELECT comment_order FROM Comment_Create_Follows C2 WHERE NOT EXISTS
 SELECT B.blogId, U.title, B.DATETIME_record FROM BID B, UID_CID_DATETIME U WHERE B.communityID = $communityID AND B.DATETIME_record = U.DATETIME_record AND B.userID = U.userID AND B.communityID = U.communityID
 
 -- Aggregation Group BY
-select COUNT(*) from Blog_Users where userID in (select vipID from VIP where vip_level > 5)
+select ban_status, COUNT(*) 
+from Blog_Users 
+where userID in (select vipID from VIP where vip_level > 5)
 group by ban_status;
 
--- Group by and having NO AGGREGATION
-SELECT C.CommunityID,C.community_level 
-                                            from Community C
-                                            GROUP BY C.topic_name 
-                                            Having C.community_level > '$level'
+SELECT topic_name, COUNT(*)
+    from Community C, About A
+    WHERE C.CommunityID = A.CommunityID and C.community_level > '$level'
+    GROUP BY topic_name
+
+-- Aggregation with having 
+SELECT C.topic_name, COUNT(*)
+    from Community C, About A
+    GROUP BY C.topic_name 
+    Having community_level > (select AVG(community_level) from community);
 
 -- Nested aggregation with group by
+SELECT B.ban_status, COUNT(*) as cont
+from Blog_Users B
+Group BY ban_status
+Having 5 < (select COUNT(*) from Blog_Users where ban_status=0);
 
 -- division
-SELECT C.CommunityID, C.community_level FROM Community C
-                                            Where NOT EXISTS (
-                                                (SELECT CO.CommunityID FROM Community CO) 
-                                            EXCEPT 
-                                            (SELECT A.CommunityID FROM About A WHERE 
-                                            A.CommunityID = CO.CommunityID AND A.topic_name = $topic)
-                                            )
+SELECT B.userID
+FROM Blog_Users B
+WHERE NOT EXISTS ((SELECT C.communityID
+  FROM Community C)
+  MINUS 
+  (SELECT S.communityID
+  FROM Subscribe S
+  WHERE S.userID = B.userID));
