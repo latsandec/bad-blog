@@ -20,7 +20,7 @@
     <div class="top-container">
     <img class="top-code" src="binary-code.png" alt="code-img">
     <h1>Hug Community</h1>
-    <h2 id: "admin">Join <span class="power">Community</span> Any Time!</h2>
+    <h2 id= "admin">Join <span class="power">Community</span> Any Time!</h2>
     <img class="bottom-code" src="binary-code.png" alt="code-img">
     <img class="programming-gif" src="programming.png" alt="animation-img">
     </div>
