@@ -1,0 +1,12 @@
+drop table VIP;
+drop table SecurityInfo_Of;
+drop table Ban;
+drop table Admin_Monitor;
+drop table Subscribe;
+drop table About;
+drop table Blog_Create_In;
+drop table Comment_Create_Follows;
+drop table Topic;
+drop table Blog_Users;
+drop table Community;
+-- select table_name from user_tables;
