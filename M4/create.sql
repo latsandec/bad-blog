@@ -62,36 +62,16 @@ CREATE TABLE Subscribe(
     FOREIGN KEY(communityID) REFERENCES Community(communityID) ON DELETE CASCADE
 );
 
-CREATE TABLE CID_DATETIME_Title(
-    communityID INTEGER,
-    DATETIME_record DATE,
-    title CHAR(250),
-    content CHAR(250) NOT NULL,
-    PRIMARY KEY(communityID,DATETIME_record,title),
-    FOREIGN KEY(communityID) REFERENCES Community(communityID) ON DELETE CASCADE
-);
-
-CREATE TABLE UID_CID_DATETIME(
-    userID INTEGER,
-    communityID INTEGER,
-    DATETIME_record DATE,
-    title CHAR(250) NOT NULL,
-    PRIMARY KEY(userID,communityID,DATETIME_record),
-    FOREIGN KEY(userID) REFERENCES Blog_Users(userID) ON DELETE CASCADE,
-    FOREIGN KEY(communityID) REFERENCES Community(communityID) ON DELETE CASCADE
-    -- FOREIGN KEY(DATETIME_record) REFERENCES CID_DATETIME_Title(DATETIME_record) ON DELETE CASCADE,
-    -- FOREIGN KEY(title) REFERENCES CID_DATETIME_Title(title) ON DELETE CASCADE These two does not work since DATETIME_record and title  is not unique in the CID_DATETIME_Title.
-);
-
-CREATE TABLE BID(
+CREATE TABLE Blog_Create_In(
     blogId INTEGER,
     userID INTEGER NOT NULL,
+    blogTime DATE NOT NULL,
     communityID INTEGER NOT NULL,
-    DATETIME_record DATE NOT NULL,
+    title CHAR(250) NOT NULL,
+    content CHAR(250) NOT NULL,
     PRIMARY KEY(blogId),
-    FOREIGN KEY(userID) REFERENCES Blog_Users(userID) ON DELETE CASCADE,
-    FOREIGN KEY(communityID) REFERENCES Community(communityID) ON DELETE CASCADE
-    -- FOREIGN KEY(DATETIME_record) REFERENCES CID_DATETIME_Title(DATETIME_record) ON DELETE CASCADE This one does not work since DATETIME_record is not unique in UID_CID_DATETIME.
+    FOREIGN KEY(userID) REFERENCES Blog_Users(userID),
+    FOREIGN KEY(communityID) REFERENCES Community(communityID)
 );
 
 CREATE TABLE Comment_Create_Follows(
@@ -100,7 +80,7 @@ CREATE TABLE Comment_Create_Follows(
     userID INTEGER NOT NULL,
     content CHAR(250) NOT NULL,
     PRIMARY KEY(comment_order,blogID),
-    FOREIGN KEY(blogID) REFERENCES BID(blogID) ON DELETE CASCADE,
+    FOREIGN KEY(blogID) REFERENCES Blog_Create_In(blogId) ON DELETE CASCADE,
     FOREIGN KEY(userID) REFERENCES Blog_Users(userID) ON DELETE CASCADE
 );
 
@@ -113,7 +93,6 @@ CREATE TABLE About(
     FOREIGN KEY(topic_name) REFERENCES Topic(topic_name) ON DELETE CASCADE
 );
 
--- select table_name from user_tables;
 
 -- INSERT INTO Blog_Users    VALUES(1,'a','2000-02-01','abc',0);
 
