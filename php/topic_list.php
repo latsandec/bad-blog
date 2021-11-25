@@ -45,6 +45,16 @@
     </form>
   </div>
 
+  <div class="middle-container">
+      <h2>Go To Community</h2>
+      <p>If you want to view the community page, press on the button</p>
+      <form method="GET" action="community_list.php">
+        <input type="hidden" id="communityRequest" name="communityRequest">
+        <input class = "btn" type="submit" value="Go" name="communitySubmit"></p>
+      </form>
+    </div>
+
+
   <?php
         include "connect.php";
 
@@ -107,6 +117,10 @@
             echo "</table>";
         }
 
+        function handleCommunityRequest() {
+            header("refresh:0;url=community_list.php");
+        }
+
         function handlePOSTRequest() {
             if (connectToDB()) {
                 if (array_key_exists('searchtopic',$_POST)) {
@@ -119,7 +133,7 @@
             }
         }
 
-        if (isset($_POST['searchtopic']) || isset($_POST['searchlevel'])) {
+        if (isset($_POST['searchtopic']) || isset($_POST['searchlevel']) || isset($_GET['communitySubmit'])) {
             handlePOSTRequest();
         }
     

@@ -43,12 +43,31 @@
       <input class = "btn" type="submit" value="View" name="listuser"></p>
     </form>
   </div>
+
   <div class="middle-container">
   <h2>Community List</h2>
     <p>If you want to view the community list, press on the view botton</p>
     <form method="POST" action="admin.php"> 
       <input type="hidden" id="listCommunityRequest" name="listCommunityRequest">
       <input class = "btn" type="submit" value="View" name="listcomm"></p>
+    </form>
+  </div>
+
+  <div class="top-container">
+    <h2>Loyal User List</h2>
+    <p>If you want to view the loyal user who subscribed all communities, press on the view botton</p>
+    <form method="POST" action="admin.php"> 
+      <input type="hidden" id="listLoyalUserRequest" name="listLoyalUserRequest">
+      <input class = "btn" type="submit" value="View" name="listloyaluser"></p>
+    </form>
+  </div>
+
+  <div class="middle-container">
+  <h2>yyyyyyyyyyyyyyyy</h2>
+    <p>If you want to view the yyyyyyyyyyyyyyyy, press on the view botton</p>
+    <form method="POST" action="admin.php"> 
+      <input type="hidden" id="listyyyyyyyyyyyyyyyyRequest" name="listyyyyyyyyyyyyyyyyRequest">
+      <input class = "btn" type="submit" value="View" name="listyyyyyyyyyyyyyyyy"></p>
     </form>
   </div>
 
@@ -118,6 +137,42 @@
           echo "</table>";
       }
 
+      function handleListLoyalUserRequest() {
+        $result = executePlainSQL("SELECT B.userID
+                                    FROM Blog_Users B
+                                    WHERE NOT EXISTS ((SELECT C.communityID
+                                    FROM Community C)
+                                    MINUS 
+                                    (SELECT S.communityID
+                                    FROM Subscribe S
+                                    WHERE S.userID = B.userID))");
+
+        echo "<br>Loyal User List:<br>";
+        echo "<table>";
+        echo "<tr><th>ID</th></tr>";
+
+        while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+            echo "<tr><td>" . $row[0] . "</td></tr>"; 
+        }
+
+        echo "</table>";
+      }
+
+
+      function handleListYYYYYYYYYYYYRequest() {
+        $result = executePlainSQL("YYYYYYYYYYYY");
+
+        echo "<br>YYYYYYY List:<br>";
+        echo "<table>";
+        echo "<tr><th>ID</th></tr>";
+
+        while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+            echo "<tr><td>" . $row[0] . "</td></tr>"; 
+        }
+
+        echo "</table>";
+      }
+
         function handlePOSTRequest() {
             if (connectToDB()) {
                 if (array_key_exists('ban', $_POST)) {
@@ -126,13 +181,17 @@
                   handleListCommRequest();
                 } else if (array_key_exists('listuser', $_POST)) {
                   handleListUserRequest();
-              }
+                } else if (array_key_exists('listloyaluser', $_POST)) {
+                  handleListLoyalUserRequest();
+                } else if (array_key_exists('listyyyyyyyyyyyyyyyyy', $_POST)) {
+                  handleListyyyyyyyyyyyyyyyyyUserRequest();
+                }
               //OCICommit($db_conn);
               disconnectFromDB();
             }
         }
 
-		if (isset($_POST['ban']) || isset($_POST['listuser']) || isset($_POST['listcomm'])) {
+		if (isset($_POST['ban']) || isset($_POST['listuser']) || isset($_POST['listcomm']) || isset($_POST['listloyaluser']) || isset($_POST['listyyyyyyyyyyyuser'])) {
             handlePOSTRequest();
         } 
 
