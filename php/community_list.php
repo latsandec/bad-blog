@@ -44,7 +44,7 @@
     </form>
   </div>
 
-  <div class="top-container">
+  <div class="middle-container">
       <h2>Topics</h2>
       <p>If you want to view the topic list, press on the button</p>
       <form method="GET" action="community_list.php">

@@ -62,6 +62,15 @@
     </form>
   </div>
 
+  <div class="middle-container">
+  <h2>yyyyyyyyyyyyyyyy</h2>
+    <p>If you want to view the yyyyyyyyyyyyyyyy, press on the view botton</p>
+    <form method="POST" action="admin.php"> 
+      <input type="hidden" id="listyyyyyyyyyyyyyyyyRequest" name="listyyyyyyyyyyyyyyyyRequest">
+      <input class = "btn" type="submit" value="View" name="listyyyyyyyyyyyyyyyy"></p>
+    </form>
+  </div>
+
 
   <?php
         include "connect.php";
@@ -149,6 +158,21 @@
         echo "</table>";
       }
 
+
+      function handleListYYYYYYYYYYYYRequest() {
+        $result = executePlainSQL("YYYYYYYYYYYY");
+
+        echo "<br>YYYYYYY List:<br>";
+        echo "<table>";
+        echo "<tr><th>ID</th></tr>";
+
+        while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+            echo "<tr><td>" . $row[0] . "</td></tr>"; 
+        }
+
+        echo "</table>";
+      }
+
         function handlePOSTRequest() {
             if (connectToDB()) {
                 if (array_key_exists('ban', $_POST)) {
@@ -159,13 +183,15 @@
                   handleListUserRequest();
                 } else if (array_key_exists('listloyaluser', $_POST)) {
                   handleListLoyalUserRequest();
+                } else if (array_key_exists('listyyyyyyyyyyyyyyyyy', $_POST)) {
+                  handleListyyyyyyyyyyyyyyyyyUserRequest();
                 }
               //OCICommit($db_conn);
               disconnectFromDB();
             }
         }
 
-		if (isset($_POST['ban']) || isset($_POST['listuser']) || isset($_POST['listcomm']) || isset($_POST['listloyaluser'])) {
+		if (isset($_POST['ban']) || isset($_POST['listuser']) || isset($_POST['listcomm']) || isset($_POST['listloyaluser']) || isset($_POST['listyyyyyyyyyyyuser'])) {
             handlePOSTRequest();
         } 
 
