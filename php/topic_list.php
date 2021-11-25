@@ -27,7 +27,7 @@
 
   <div class="middle-container">
     <h2>Enter Topic to Find Community You Love</h2>
-    <p>Ex. you can search "Anime" "Cook" "Music" "Sports" "IT" where level is greater than</p>
+    <p>Ex. you can search "Anime" "Cook" "Music" "Sports" "IT" to find communities.</p>
     <form method="POST" action="topic_list.php"> 
     <input type="hidden" id="showTopicCommunityRequest" name="showTopicCommunityRequest">
     Interested Topic: <input type="text" name="Topic"> <br /><br />
@@ -36,8 +36,8 @@
   </div>
 
   <div class="top-container">
-    <h2>Hunt Community with Level</h2>
-    <p>Ex. you can find out community where level is greater than you expect and group by topics</p>
+    <h2>Hunt Topic with Level</h2>
+    <p>Ex. you can find out our hottest topic where level is greater than you expect</p>
     <form method="POST" action="topic_list.php"> 
     <input type="hidden" id="showLevelCommunityRequest" name="showLevelCommunityRequest">
     Level At Least: <input type="text" name="Level"> <br /><br />
@@ -55,11 +55,14 @@
             if ($topic !== '') {
                 $result = executePlainSQL("SELECT C.CommunityID, C.community_level FROM Community C
                                             Where NOT EXISTS (
-                                                (SELECT CO.CommunityID FROM Community CO) 
-                                            EXCEPT 
-                                            (SELECT A.CommunityID FROM About A WHERE 
-                                            A.CommunityID = CO.CommunityID AND A.topic_name = $topic)
+                                                (SELECT CommunityID 
+                                                    FROM Community)
+                                                    MINUS 
+                                                    (SELECT A.CommunityID 
+                                                    FROM About A, Community CO
+                                                    WHERE A.CommunityID = CO.CommunityID AND A.topic_name = '$topic')
                                             )" ); 
+
                                             //list community that have the topic
                                             //community that except with the topic
                                             //community that with the topic
@@ -85,17 +88,17 @@
             settype($level, "integer");
 
             if ($level !== '') {
-                $result = executePlainSQL("SELECT C.CommunityID,C.community_level 
-                                            from Community C
-                                            GROUP BY C.topic_name 
-                                            Having C.community_level > '$level'" );
+                $result = executePlainSQL("SELECT topic_name, COUNT(*)
+                                            from Community C, About A
+                                            WHERE C.CommunityID = A.CommunityID and C.community_level > '$level'
+                                            GROUP BY topic_name" );
             } else {
                 echo "<br>Please enter level.<br>";
             }
 
-            echo "<br>Community List:<br>";
+            echo "<br>Hot Topic List:<br>";
             echo "<table>";
-            echo "<tr><th>ID</th><th>Level</th></tr>";
+            echo "<tr><th>Topic</th><th>Popularity</th></tr>";
 
             while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
                 echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td></tr>"; 
