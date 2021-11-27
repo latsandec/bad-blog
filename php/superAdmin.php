@@ -41,8 +41,19 @@
             <p>Input two attribute you want to select, the name of the table, and constraint of field1 = var1.</p>
         </form>
     </div>
-
     <div class="top-container">
+    <form class="" action="superAdmin.php" method="GET">
+            <h2>Change VIP</h2>
+            <p>You can update the vip level the preferred color</p>
+                <input type="text" name ="vipID" placeholder="vipID">
+                <input type="text" name ="attribute5" placeholder="attribute you want to update">
+                <input type="text" name ="value" placeholder="value">
+                <input type="submit" name="submit2" value="confirm">
+            
+            <p>Input two attribute you want to select, the name of the table, and constraint of field1 = var1.</p>
+        </form>
+    </div>
+    <div class="middle-container">
       <h2>Go To Admin</h2>
       <p>If you want to view the Admin page, press on the button</p>
       <form method="GET" action="admin.php">
@@ -50,21 +61,20 @@
         <input class = "btn" type="submit" value="Go" name="adminSubmit"></p>
       </form>
     </div>
+    
 
     
 
 <?php
 include "connect.php";
-function handleSelectionRequest(){
-    
-}
 $attribute1 = $_REQUEST["attribute1"];
 $attribute2 = $_REQUEST["attribute2"];
 $table = $_REQUEST["table"];
 $field1 = $_REQUEST["field1"];
-$field2 = $_REQUEST["field2"];
 $var1 = $_REQUEST["var1"];
-$var1 = $_REQUEST["var1"];
+$vipID = $_REQUEST["vipID"];
+$attributeUpdate = $_REQUEST["attribute5"];
+$value = $_REQUEST["value"];
 
 if(isset($_GET['submit'])){
     // echo "Good";
@@ -81,6 +91,13 @@ if(isset($_GET['submit'])){
         }
 
         
+    }
+}elseif(isset($_GET['submit2'])){
+    // echo $vipID;
+    // echo $attributeUpdate;
+    if(connectToDB()){
+        $cmd = "UPDATE VIP SET $attributeUpdate = $value WHERE vipID = $vipID";
+        $result = executePlainSQL($cmd);        
     }
 }
 
