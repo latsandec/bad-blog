@@ -63,10 +63,11 @@
   </div>
 
   <div class="middle-container">
-  <h2>yyyyyyyyyyyyyyyy</h2>
+  <h2>VIP Data Matters</h2>
     <p>If you want to view the count the number of vip users, in which there are more than x users in the vip_level, press on the view botton</p>
     <form method="POST" action="admin.php"> 
-      <input type="hidden" id="countingVIP" name="countingVIP">
+      <input type="hidden" id="countingVIP" name="countingVIPRequest">
+      Number of VIP: <input type="text" name="novip"> <br /><br />
       <input class = "btn" type="submit" value="View" name="countingVIP"></p>
     </form>
   </div>
@@ -176,9 +177,9 @@
                                                FROM VIP v2
                                                WHERE v.vip_level = v2.vip_level)");
 
-        echo "<br>YYYYYYY List:<br>";
+        echo "<br> Counting VIP <br>";
         echo "<table>";
-        echo "<tr><th>ID</th></tr>";
+        echo "<tr><th>count:</th></tr>";
 
         while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
             echo "<tr><td>" . $row[0] . "</td></tr>"; 
@@ -210,7 +211,7 @@
             }
         }
 
-		if (isset($_POST['ban']) || isset($_POST['listuser']) || isset($_POST['listcomm']) || isset($_POST['listloyaluser']) || isset($_POST['listyyyyyyyyyyyuser'])|| isset($_POST['superAdminRequest'])) {
+		if (isset($_POST['ban']) || isset($_POST['listuser']) || isset($_POST['listcomm']) || isset($_POST['listloyaluser']) || isset($_POST['countingVIP'])|| isset($_POST['superAdminRequest'])) {
             handlePOSTRequest();
         } 
 
