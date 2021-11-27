@@ -36,7 +36,11 @@
   </div>
 
   <div class="top-container">
+<<<<<<< HEAD
   <h2>User List</h2>
+=======
+    <h2>User List</h2>
+>>>>>>> 411ba03e3e943268d93ad0fadbefad093be66c2f
     <p>If you want to view the user list, select attributes and press on the view botton</p>
     <form method="POST" action="admin.php"> 
       <input type="checkbox" id="selectUserID" name="selectUserID" value="userID">
@@ -73,23 +77,13 @@
   </div>
 
   <div class="middle-container">
-  <h2>VIP Data Matters</h2>
-    <p>If you want to view the count the number of vip users, in which there are more than x users in the vip_level, press on the view botton</p>
+  <h2>yyyyyyyyyyyyyyyy</h2>
+    <p>If you want to view the yyyyyyyyyyyyyyyy, press on the view botton</p>
     <form method="POST" action="admin.php"> 
-      <input type="hidden" id="countingVIP" name="countingVIPRequest">
-      Number of VIP: <input type="text" name="novip"> <br /><br />
-      <input class = "btn" type="submit" value="View" name="countingVIP"></p>
+      <input type="hidden" id="listyyyyyyyyyyyyyyyyRequest" name="listyyyyyyyyyyyyyyyyRequest">
+      <input class = "btn" type="submit" value="View" name="listyyyyyyyyyyyyyyyy"></p>
     </form>
   </div>
-
-  <div class="top-container">
-      <h2>Go To Super Admin</h2>
-      <p>If you want to view the Super Admin page, press on the button</p>
-      <form method="GET" action="superAdmin.php">
-        <input type="hidden" id="superAdminRequest" name="superAdminRequest">
-        <input class = "btn" type="submit" value="Go" name="superAdminSubmit"></p>
-      </form>
-    </div>
 
 
   <?php
@@ -174,6 +168,10 @@
           } else {
             echo "You have to select at least 3 attributes.";
           }
+<<<<<<< HEAD
+=======
+          
+>>>>>>> 411ba03e3e943268d93ad0fadbefad093be66c2f
       }
 
       function handleListLoyalUserRequest() {
@@ -198,8 +196,12 @@
       }
 
 
+<<<<<<< HEAD
       function handlecountingVIPRequest() {
         $novip = $_REQUEST['novip'];
+=======
+      function handleListYYYYYYYYYYYYRequest() {
+>>>>>>> 411ba03e3e943268d93ad0fadbefad093be66c2f
         $result = executePlainSQL("SELECT v1.vip_level, COUNT(*) as ct
                                    FROM VIP v1
                                    GROUP BY vip_level
@@ -207,9 +209,9 @@
                                                FROM VIP v2
                                                WHERE v.vip_level = v2.vip_level)");
 
-        echo "<br> Counting VIP <br>";
+        echo "<br>YYYYYYY List:<br>";
         echo "<table>";
-        echo "<tr><th>count:</th></tr>";
+        echo "<tr><th>ID</th></tr>";
 
         while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
             echo "<tr><td>" . $row[0] . "</td></tr>"; 
@@ -217,9 +219,6 @@
 
         echo "</table>";
       }
-      function handlesuperAdminRequest() {
-        header("refresh:0;url=superAdmin.php");
-    }
 
         function handlePOSTRequest() {
             if (connectToDB()) {
@@ -231,17 +230,15 @@
                   handleListUserRequest();
                 } else if (array_key_exists('listloyaluser', $_POST)) {
                   handleListLoyalUserRequest();
-                } else if (array_key_exists('countingVIP', $_POST)) {
-                  handlecountingVIPRequest();
-                } else if (array_key_exists('superAdminRequest', $_POST)) {
-                  handlesuperAdminRequest();
+                } else if (array_key_exists('listyyyyyyyyyyyyyyyyy', $_POST)) {
+                  handleListyyyyyyyyyyyyyyyyyUserRequest();
                 }
               //OCICommit($db_conn);
               disconnectFromDB();
             }
         }
 
-		if (isset($_POST['ban']) || isset($_POST['listuser']) || isset($_POST['listcomm']) || isset($_POST['listloyaluser']) || isset($_POST['countingVIP'])|| isset($_POST['superAdminRequest'])) {
+		if (isset($_POST['ban']) || isset($_POST['listuser']) || isset($_POST['listcomm']) || isset($_POST['listloyaluser']) || isset($_POST['listyyyyyyyyyyyuser'])) {
             handlePOSTRequest();
         } 
 
