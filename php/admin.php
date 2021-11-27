@@ -124,14 +124,14 @@
         }
 
         function handleListUserRequest() {
-          $result = executePlainSQL("SELECT * FROM blog_users");
+          $result = executePlainSQL("SELECT userID, userName, birthday,ban_status FROM blog_users");
 
           echo "<br>User List:<br>";
           echo "<table>";
           echo "<tr><th>ID</th><th>Name</th><th>BD</th><th>Ban status</th></tr>";
 
           while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-              echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td><td>" . $row[2] . "</td><td>" . $row[4] . "</td></tr>"; 
+              echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td><td>" . $row[2] . "</td><td>" . $row[3] . "</td></tr>"; 
           }
 
           echo "</table>";
