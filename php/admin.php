@@ -64,12 +64,21 @@
 
   <div class="middle-container">
   <h2>yyyyyyyyyyyyyyyy</h2>
-    <p>If you want to view the yyyyyyyyyyyyyyyy, press on the view botton</p>
+    <p>If you want to view the count the number of vip users, in which there are more than x users in the vip_level, press on the view botton</p>
     <form method="POST" action="admin.php"> 
-      <input type="hidden" id="listyyyyyyyyyyyyyyyyRequest" name="listyyyyyyyyyyyyyyyyRequest">
-      <input class = "btn" type="submit" value="View" name="listyyyyyyyyyyyyyyyy"></p>
+      <input type="hidden" id="countingVIP" name="countingVIP">
+      <input class = "btn" type="submit" value="View" name="countingVIP"></p>
     </form>
   </div>
+
+  <div class="top-container">
+      <h2>Go To Super Admin</h2>
+      <p>If you want to view the Super Admin page, press on the button</p>
+      <form method="GET" action="superAdmin.php">
+        <input type="hidden" id="superAdminRequest" name="superAdminRequest">
+        <input class = "btn" type="submit" value="Go" name="superAdminSubmit"></p>
+      </form>
+    </div>
 
 
   <?php
@@ -159,7 +168,7 @@
       }
 
 
-      function handleListYYYYYYYYYYYYRequest() {
+      function handlecountingVIPRequest() {
         $result = executePlainSQL("SELECT v1.vip_level, COUNT(*) as ct
                                    FROM VIP v1
                                    GROUP BY vip_level
@@ -177,6 +186,9 @@
 
         echo "</table>";
       }
+      function handlesuperAdminRequest() {
+        header("refresh:0;url=superAdmin.php");
+    }
 
         function handlePOSTRequest() {
             if (connectToDB()) {
@@ -188,15 +200,17 @@
                   handleListUserRequest();
                 } else if (array_key_exists('listloyaluser', $_POST)) {
                   handleListLoyalUserRequest();
-                } else if (array_key_exists('listyyyyyyyyyyyyyyyyy', $_POST)) {
-                  handleListyyyyyyyyyyyyyyyyyUserRequest();
+                } else if (array_key_exists('countingVIP', $_POST)) {
+                  handlecountingVIPRequest();
+                } else if (array_key_exists('superAdminRequest', $_POST)) {
+                  handlesuperAdminRequest();
                 }
               //OCICommit($db_conn);
               disconnectFromDB();
             }
         }
 
-		if (isset($_POST['ban']) || isset($_POST['listuser']) || isset($_POST['listcomm']) || isset($_POST['listloyaluser']) || isset($_POST['listyyyyyyyyyyyuser'])) {
+		if (isset($_POST['ban']) || isset($_POST['listuser']) || isset($_POST['listcomm']) || isset($_POST['listloyaluser']) || isset($_POST['listyyyyyyyyyyyuser'])|| isset($_POST['superAdminRequest'])) {
             handlePOSTRequest();
         } 
 

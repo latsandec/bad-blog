@@ -129,9 +129,10 @@
             if (connectToDB()) {
                 if (array_key_exists('searchtopic',$_POST)) {
                     handleSearchTopicRequest();
-                }
-                if (array_key_exists('searchlevel',$_POST)) {
+                } else if (array_key_exists('searchlevel',$_POST)) {
                     handleCommunityLevelRequest();
+                } else if (array_key_exists('topicRequest', $_GET)) {
+                    handleCommunityRequest();
                 }
                 disconnectFromDB();
             }
