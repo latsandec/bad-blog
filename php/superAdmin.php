@@ -1,70 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Super Powerful Admin</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=MonteCarlo&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Adminastrator</title>
 </head>
 <body>
-
-    <body>
-    <div class="top-container">
-    <img class="top-code" src="binary-code.png" alt="code-img">
-    <h1>Even Stronger</h1>
-    <h2 id= "admin">You know what, you are <span class="power">Stronger</span> Now!</h2>
-    <img class="bottom-code" src="binary-code.png" alt="code-img">
-    <img class="programming-gif" src="programming.png" alt="animation-img">
-    </div>
-
-    <div class="middle-container">
-        <form class="" action="superAdmin.php" method="GET">
-            <h2>Super Administrator</h2>
+    <form class="" action="superAdmin.php" method="GET">
+            <h1>Super Adminastrator
             <p>You can access two attributes from any table you want</p>
                 <input type="text" name ="attribute1" placeholder="attribute1">
                 <input type="text" name ="attribute2" placeholder="attribute2">
                 <input type="text" name ="table" placeholder="table name">
                 <input type="text" name ="field1" placeholder="field1">
-                <!-- <input type="text" name ="field2" placeholder="field2"> -->
                 <input type="text" name ="var1" placeholder="var1">
-                <!-- <input type="text" name ="var2" placeholder="var2"> -->
-                <input class = "btn" type="submit" name="submit" value="confirm">
-            
+                <input type="submit" name="submit" value="confirm">
+            </h1>
             <p>Input two attribute you want to select, the name of the table, and constraint of field1 = var1.</p>
         </form>
-    </div>
 
-    <div class="top-container">
-      <h2>Go To Admin</h2>
-      <p>If you want to view the Admin page, press on the button</p>
-      <form method="GET" action="admin.php">
-        <input type="hidden" id="adminRequest" name="adminRequest">
-        <input class = "btn" type="submit" value="Go" name="adminSubmit"></p>
-      </form>
-    </div>
-
-    
+        <form class="" action="superAdmin.php" method="GET">
+            <h1>Change VIP
+            <p>You can update the vip level the preferred color</p>
+                <input type="text" name ="vipID" placeholder="vipID">
+                <input type="text" name ="attribute5" placeholder="attribute you want to update">
+                <input type="text" name ="value" placeholder="value">
+                <input type="submit" name="submit2" value="confirm">
+            </h1>
+            <p>Input two attribute you want to select, the name of the table, and constraint of field1 = var1.</p>
+        </form>
 
 <?php
 include "connect.php";
-function handleSelectionRequest(){
-    
-}
 $attribute1 = $_REQUEST["attribute1"];
 $attribute2 = $_REQUEST["attribute2"];
 $table = $_REQUEST["table"];
 $field1 = $_REQUEST["field1"];
-$field2 = $_REQUEST["field2"];
 $var1 = $_REQUEST["var1"];
-$var1 = $_REQUEST["var1"];
+$vipID = $_REQUEST["vipID"];
+$attributeUpdate = $_REQUEST["attribute5"];
+$value = $_REQUEST["value"];
 
 if(isset($_GET['submit'])){
     // echo "Good";
@@ -82,23 +58,13 @@ if(isset($_GET['submit'])){
 
         
     }
-}
-
-function handleAdminRequest() {
-    header("refresh:0;url=admin_list.php");
-}
-
-function handlePOSTRequest() {
-    if (connectToDB()) {
-        if (array_key_exists('adminRequest', $_GET)) {
-            handleAdminRequest();
-        }
-        disconnectFromDB();
+}elseif(isset($_GET['submit2'])){
+    // echo $vipID;
+    // echo $attributeUpdate;
+    if(connectToDB()){
+        $cmd = "UPDATE VIP SET $attributeUpdate = $value WHERE vipID = $vipID";
+        $result = executePlainSQL($cmd);        
     }
-}
-
-if (isset($_GET['adminSubmit'])) {
-    handlePOSTRequest();
 }
     disconnectFromDB();
 
