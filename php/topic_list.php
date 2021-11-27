@@ -63,29 +63,33 @@
             $topic = $_REQUEST['Topic'];
 
             if ($topic !== '') {
-                $result = executePlainSQL("SELECT C.CommunityID, C.community_level FROM Community C
-                                            Where NOT EXISTS (
-                                                (SELECT CommunityID 
-                                                    FROM Community)
-                                                    MINUS 
-                                                    (SELECT A.CommunityID 
-                                                    FROM About A, Community CO
-                                                    WHERE A.CommunityID = CO.CommunityID AND A.topic_name = '$topic')
-                                            )" ); 
+                // $result = executePlainSQL("SELECT C.CommunityID, C.community_level FROM Community C
+                //                             Where NOT EXISTS (
+                //                                 (SELECT CommunityID 
+                //                                     FROM Community)
+                //                                     MINUS 
+                //                                     (SELECT A.CommunityID 
+                //                                     FROM About A, Community CO
+                //                                     WHERE A.CommunityID = CO.CommunityID AND A.topic_name = '$topic')
+                //                             )" ); 
 
                                             //list community that have the topic
                                             //community that except with the topic
                                             //community that with the topic
+                //属于是暂时放弃这个玩意了，我重做了sql去达到同样的功能 for fun。
+                $result = executePlainSQL("SELECT a.communityID
+                                           FROM About a
+                                           Where a.topic_name = '$topic'");
             } else {
                 echo "<br>Please enter topic.<br>";
             }
 
             echo "<br>Community List:<br>";
             echo "<table>";
-            echo "<tr><th>ID</th><th>Level</th></tr>";
+            echo "<tr><th>Community ID</th></tr>";
 
             while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-                echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td></tr>"; 
+                echo "<tr><td>" . $row[0] . "</td></tr>"; 
             }
 
             echo "</table>";

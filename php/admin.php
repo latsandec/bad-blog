@@ -160,7 +160,12 @@
 
 
       function handleListYYYYYYYYYYYYRequest() {
-        $result = executePlainSQL("YYYYYYYYYYYY");
+        $result = executePlainSQL("SELECT v1.vip_level, COUNT(*) as ct
+                                   FROM VIP v1
+                                   GROUP BY vip_level
+                                   HAVING 3 < (SELECT COUNT(*)
+                                               FROM VIP v2
+                                               WHERE v.vip_level = v2.vip_level)");
 
         echo "<br>YYYYYYY List:<br>";
         echo "<table>";
