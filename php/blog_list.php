@@ -17,12 +17,23 @@
 </head>
 
     <body>
+
+    <div class="top-container">
+        <img class="top-code" src="binary-code.png" alt="code-img">
+        <h1>Blogs</h1>
+        <h2 id: "admin">Check out those <span class="power">AWESOME</span> Blogs</h2>
+        <img class="bottom-code" src="binary-code.png" alt="code-img">
+        <img class="programming-gif" src="programming.png" alt="animation-img">
+    </div>
+    <div class="middle-container">
         <p>Follow or unfollow this community</p>
         <form method="POST" action="blog_list.php">
             <input type="hidden" id="followRequest" name="followRequest">
             <input class = "btn" type="submit" value="Click" name="followSubmit"></p>
         </form>
+    </div>
 
+    <div class="top-container">
         <h2>Search</h2>
         <p>Enter the blog id to view detail</p>
         <form method="GET" action="blog_list.php"> 
@@ -30,16 +41,19 @@
             ID: <input type="text" name="blogID"> <br /><br />
             <input class = "btn" type="submit" value="View" name="detailSubmit"></p>
         </form>
-
-
-        <h2>Blog List</h2>
+    </div>
+        
+    <div class="middle-container">
+    <h2>Blog List</h2>
         <p>If you want to refresh the blog list, press on the refresh button</p>
         <form method="GET" action="blog_list.php"> 
             <input type="hidden" id="refreshRequest" name="refreshRequest">
             <input class = "btn" type="submit" value="Refresh" name="refreshSubmit"></p>
         </form>
+    </div>
 
 
+    <div class="top-container">
         <h2>New Post</h2>
         <p>Enter title and content and click Post to create a new blog</p>
         <form method="POST" action="blog_list.php"> 
@@ -48,6 +62,10 @@
             content: <input type="text" name="content"> <br /><br />
             <input class = "btn" type="submit" value="Post" name="postSubmit"></p>
         </form>
+    </div>
+
+
+        
         <?php
         session_save_path('/home/r/rjin02/public_html');
         session_start();
