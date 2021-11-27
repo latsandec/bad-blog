@@ -20,7 +20,7 @@
   <div class="top-container">
     <img class="top-code" src="binary-code.png" alt="code-img">
     <h1>Welcome</h1>
-    <h2 id: "admin">Our <span class="power">power</span>ful Admin</h2>
+    <h2 id= "admin">Our <span class="power">power</span>ful Admin</h2>
     <img class="bottom-code" src="binary-code.png" alt="code-img">
     <img class="programming-gif" src="programming.png" alt="animation-img">
   </div>
@@ -125,7 +125,6 @@
             $cmd = "select ban_status from Blog_Users where userID = 3040001";
             $result = executePlainSQL($cmd);
             $row = OCI_Fetch_Array($result, OCI_BOTH);
-            echo "AAAAAAAAAAAAAAA";
             echo $row[0];
           }
         
