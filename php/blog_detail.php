@@ -67,7 +67,7 @@
             global $db_conn;
             $blogID = $_SESSION['blog'];
             $order = $_POST['order'];
-            $userID = $_SESSION['userID'];
+            $userID = $_SESSION['username'];
             if ($order == '0') {
                 $senderID = oci_fetch_row(executePlainSQL("SELECT userID FROM BID WHERE blogId = $blogID"));
                 if ($userID == $senderID[0]) {
@@ -96,8 +96,7 @@
         function handleAddCommentRequest() {
                     global $db_conn;
                     $blogID = $_SESSION['blog'];
-                    //$userID = 3040001;
-                    $userID = $_SESSION['userID'];
+                    $userID = $_SESSION['username'];
                     $content = $_POST['content'];
                     $checkBan = OCI_Fetch_Array(executePlainSQL("SELECT ban_status FROM Blog_Users WHERE userID = $userID"));
                     if ($checkBan[0] == 0) {
@@ -139,6 +138,7 @@
 
         session_save_path('/home/r/rjin02/public_html');
         session_start();
+        displayBlog();
         if ($_SESSION['community'] == '') {
             echo "Error, back to community list page";
             header("refresh:3;url=community_list.php");

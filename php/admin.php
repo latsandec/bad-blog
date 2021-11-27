@@ -37,8 +37,18 @@
 
   <div class="top-container">
     <h2>User List</h2>
-    <p>If you want to view the user list, press on the view botton</p>
+    <p>If you want to view the user list, select attributes and press on the view botton</p>
     <form method="POST" action="admin.php"> 
+      <input type="checkbox" id="selectUserID" name="selectUserID" value="userID">
+      <label for="selectUserID"> UserID</label><br>
+      <input type="checkbox" id="selectUserName" name="selectUserName" value="userName">
+      <label for="selectUserName"> UserName</label><br>
+      <input type="checkbox" id="selectBirthday" name="selectBirthday" value="birthday">
+      <label for="selectBirthday"> Birthday</label><br>
+      <input type="checkbox" id="selectPassword" name="selectPassword" value="userPassword">
+      <label for="selectPassword"> UserPassword</label><br>
+      <input type="checkbox" id="selectBan" name="selectBan" value="ban_status">
+      <label for="selectBan"> Ban Status</label><br>
       <input type="hidden" id="listUserRequest" name="listUserRequest">
       <input class = "btn" type="submit" value="View" name="listuser"></p>
     </form>
@@ -124,17 +134,37 @@
         }
 
         function handleListUserRequest() {
-          $result = executePlainSQL("SELECT * FROM blog_users");
-
-          echo "<br>User List:<br>";
-          echo "<table>";
-          echo "<tr><th>ID</th><th>Name</th><th>BD</th><th>Ban status</th></tr>";
-
-          while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-              echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td><td>" . $row[2] . "</td><td>" . $row[4] . "</td></tr>"; 
+          $select = array($_POST['selectUserID'], $_POST['selectUserName'], $_POST['selectBirthday'], $_POST['selectPassword'], $_POST['selectBan']);
+          $selectString = "";
+          $columnString = "<tr>";
+          $count = 0;
+          foreach ($select as $attribute) {
+            if ($attribute !== NULL) {
+              $selectString = $selectString . $attribute . ",";
+              $columnString = $columnString . "<th>" . $attribute . "</th>";
+              $count++;
+            }
           }
+          $selectString = substr($selectString, 0, -1);
+          $columnString = $columnString. "</tr>";
+          if ($count >= 3) {
+            $result = executePlainSQL("SELECT " . $selectString . " FROM blog_users");
 
-          echo "</table>";
+            echo "<br>User List:<br>";
+            echo "<table>";
+
+            echo $columnString;
+
+            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+                echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td><td>" . $row[2] . "</td><td>" . $row[3]. "</td><td>" . $row[4] . "</td></tr>"; 
+            }
+
+            echo "</table>";
+            
+          } else {
+            echo "You have to select at least 3 attributes.";
+          }
+          
       }
 
       function handleListLoyalUserRequest() {
@@ -160,7 +190,12 @@
 
 
       function handleListYYYYYYYYYYYYRequest() {
-        $result = executePlainSQL("YYYYYYYYYYYY");
+        $result = executePlainSQL("SELECT v1.vip_level, COUNT(*) as ct
+                                   FROM VIP v1
+                                   GROUP BY vip_level
+                                   HAVING 3 < (SELECT COUNT(*)
+                                               FROM VIP v2
+                                               WHERE v.vip_level = v2.vip_level)");
 
         echo "<br>YYYYYYY List:<br>";
         echo "<table>";
