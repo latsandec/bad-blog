@@ -17,6 +17,12 @@
 </head>
 
     <body>
+        <p>Follow or unfollow this community</p>
+        <form method="POST" action="blog_list.php">
+            <input type="hidden" id="followRequest" name="followRequest">
+            <input class = "btn" type="submit" value="Click" name="followSubmit"></p>
+        </form>
+
         <h2>Search</h2>
         <p>Enter the blog id to view detail</p>
         <form method="GET" action="blog_list.php"> 
@@ -27,7 +33,7 @@
 
 
         <h2>Blog List</h2>
-        <p>If you want to refresh the blog list, press on the refresh botton</p>
+        <p>If you want to refresh the blog list, press on the refresh button</p>
         <form method="GET" action="blog_list.php"> 
             <input type="hidden" id="refreshRequest" name="refreshRequest">
             <input class = "btn" type="submit" value="Refresh" name="refreshSubmit"></p>
@@ -81,6 +87,22 @@
             echo "<tr><td>Total:</td><td>" . $total[0] . "</td></tr>"; 
             echo "</table>";
         }
+
+        function handleFollowRequest() {
+            global $db_conn;
+            $communityID = $_SESSION['community'];
+            $userID = $_SESSION['username'];
+            $result = OCI_Fetch_Array(executePlainSQL("SELECT userID FROM Subscribe WHERE communityID = $communityID AND userID = $userID"));
+            if ($userID == $result[0]) {
+                executePlainSQL("DELETE FROM Subscribe WHERE communityID = $communityID AND userID = $userID");
+                OCICommit($db_conn);
+                echo "Unfollow successfully";
+            } else {
+                executePlainSQL("INSERT INTO Subscribe VALUES($userID, $communityID)");
+                OCICommit($db_conn);
+                echo "Follow successfully";
+            }
+        }
         
 
         function handleAddBlogRequest() {
@@ -91,28 +113,34 @@
                     $title = $_POST['title'];
                     $content = $_POST['content'];
                     $time = date("Y-m-d H:i:s", time());
-                    $total = oci_fetch_row(executePlainSQL("SELECT Count(*) FROM BID"));
-                    if ($total[0] == 1) {
-                        $newest = oci_fetch_row(executePlainSQL("SELECT blogId FROM BID"));
-                        $order = $newest[0] + 1;
-                    } else {
-                        $newest = oci_fetch_row(executePlainSQL("SELECT blogId FROM BID B2 WHERE NOT EXISTS
-                        (SELECT * FROM BID B1 WHERE B1.blogId > B2.blogId)"));
-                        $order = $newest[0] + 1;
-                    }
-                    $blogID = $order;
+                    $checkBan = OCI_Fetch_Array(executePlainSQL("SELECT ban_status FROM Blog_Users WHERE userID = $userID"));
+                    if ($checkBan[0] == 0) {
+                        $total = oci_fetch_row(executePlainSQL("SELECT Count(*) FROM BID"));
+                        if ($total[0] == 1) {
+                            $newest = oci_fetch_row(executePlainSQL("SELECT blogId FROM BID"));
+                            $order = $newest[0] + 1;
+                        } else {
+                            $newest = oci_fetch_row(executePlainSQL("SELECT blogId FROM BID B2 WHERE NOT EXISTS
+                            (SELECT * FROM BID B1 WHERE B1.blogId > B2.blogId)"));
+                            $order = $newest[0] + 1;
+                        }
+                        $blogID = $order;
 
-                    if ($title !== '' && $content !== '' && $time !== '') {
-                        executePlainSQL("INSERT INTO CID_DATETIME_Title    VALUES($communityID,to_date('$time','YYYY-MM-DD HH24:MI:SS'), '$title', '$content')");
-                        OCICommit($db_conn);
-                        executePlainSQL("INSERT INTO UID_CID_DATETIME    VALUES($userID, $communityID, to_date('$time','YYYY-MM-DD HH24:MI:SS'), '$title')");
-                        OCICommit($db_conn);
-                        executePlainSQL("INSERT INTO BID    VALUES($blogID, $userID, $communityID, to_date('$time','YYYY-MM-DD HH24:MI:SS'))");
-                        OCICommit($db_conn);
-                        echo "The blog has been posted successfully";
+                        if ($title !== '' && $content !== '' && $time !== '') {
+                            executePlainSQL("INSERT INTO CID_DATETIME_Title    VALUES($communityID,to_date('$time','YYYY-MM-DD HH24:MI:SS'), '$title', '$content')");
+                            OCICommit($db_conn);
+                            executePlainSQL("INSERT INTO UID_CID_DATETIME    VALUES($userID, $communityID, to_date('$time','YYYY-MM-DD HH24:MI:SS'), '$title')");
+                            OCICommit($db_conn);
+                            executePlainSQL("INSERT INTO BID    VALUES($blogID, $userID, $communityID, to_date('$time','YYYY-MM-DD HH24:MI:SS'))");
+                            OCICommit($db_conn);
+                            echo "The blog has been posted successfully";
+                        } else {
+                            echo "<br>Make sure to input all title content and time.<br>";
+                        }
                     } else {
-                        echo "<br>Make sure to input all title content and time.<br>";
+                        echo "<br>You are banned.<br>";
                     }
+
                 }
 
         function handleGETRequest() {
@@ -131,16 +159,15 @@
             if (connectToDB()) {
                 if (array_key_exists('addBlogRequest', $_POST)) {
                     handleAddBlogRequest();
+                } else if (array_key_exists('followRequest', $_POST)) {
+                    handleFollowRequest();
                 }
 
                 disconnectFromDB();
             }
         }
 
-        //echo $_SESSION['username'];
         if ($_SESSION['community'] == '') {
-            //echo $_SESSION['username'];
-            //echo $_SESSION['islogin'];
             echo "Error, back to community list page";
             header("refresh:3;url=community_list.php");
         } else if ($_SESSION['username'] == '') {
@@ -149,7 +176,7 @@
         }
 		if (isset($_GET['detailSubmit']) || isset($_GET['refreshSubmit'])) {
             handleGETRequest();
-        } else if (isset($_POST['postSubmit'])) {
+        } else if (isset($_POST['postSubmit']) || isset($_POST['followSubmit'])) {
             handlePOSTRequest();
         }
 
