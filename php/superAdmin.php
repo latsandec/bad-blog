@@ -53,6 +53,16 @@
             <p>Input two attribute you want to select, the name of the table, and constraint of field1 = var1.</p>
         </form>
     </div>
+
+    <div class="top-container">
+      <h2>View number of users according to ban status</h2>
+      <p>View number of users according to ban status which the larger is greater than</p>
+      <form method="GET" action="superAdmin.php">
+        <input type="text" name ="number" placeholder="number">
+        <input class = "btn" type="submit" value="confirm" name="submit3"></p>
+      </form>
+    </div>
+
     <div class="middle-container">
       <h2>Go To Admin</h2>
       <p>If you want to view the Admin page, press on the button</p>
@@ -61,6 +71,8 @@
         <input class = "btn" type="submit" value="Go" name="adminSubmit"></p>
       </form>
     </div>
+    </div>
+    
     
 
     
@@ -75,6 +87,7 @@ $var1 = $_REQUEST["var1"];
 $vipID = $_REQUEST["vipID"];
 $attributeUpdate = $_REQUEST["attribute5"];
 $value = $_REQUEST["value"];
+$num = $_REQUEST["number"];
 
 if(isset($_GET['submit'])){
     // echo "Good";
@@ -99,6 +112,23 @@ if(isset($_GET['submit'])){
         $cmd = "UPDATE VIP SET $attributeUpdate = $value WHERE vipID = $vipID";
         $result = executePlainSQL($cmd);  
         OCICommit($db_conn);
+    }
+}elseif(isset($_GET['submit3'])){
+    if(connectToDB()){
+        $cmd = "SELECT ban_status, COUNT(*)
+        from Blog_Users
+        GROUP BY ban_status
+        Having COUNT(*) > $num";
+        $result = executePlainSQL($cmd);  
+        OCICommit($db_conn);
+
+        echo "<br>Result<br>";
+        echo "<table>";
+        echo "<tr><th>ban_status</th><th>number</th></tr>";
+
+        while($row = OCI_Fetch_Array($result, OCI_BOTH)){
+            echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td></tr>";
+        }
     }
 }
 
