@@ -199,19 +199,20 @@
 
       function handlecountingVIPRequest() {
         $novip = $_REQUEST['novip'];
+        // echo $novip;
         $result = executePlainSQL("SELECT v1.vip_level, COUNT(*) as ct
                                    FROM VIP v1
                                    GROUP BY vip_level
-                                   HAVING '$novip' < (SELECT COUNT(*)
+                                   HAVING $novip < (SELECT COUNT(*)
                                                FROM VIP v2
-                                               WHERE v.vip_level = v2.vip_level)");
+                                               WHERE v1.vip_level = v2.vip_level)");
 
         echo "<br> Counting VIP <br>";
         echo "<table>";
-        echo "<tr><th>count:</th></tr>";
+        echo "<tr><th>vip level:</th><th>count:</th></tr>";;
 
         while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-            echo "<tr><td>" . $row[0] . "</td></tr>"; 
+            echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td></tr>";
         }
 
         echo "</table>";
@@ -235,7 +236,7 @@
                 } else if (array_key_exists('superAdminRequest', $_POST)) {
                   handlesuperAdminRequest();
                 }
-              //OCICommit($db_conn);
+              OCICommit($db_conn);
               disconnectFromDB();
             }
         }
