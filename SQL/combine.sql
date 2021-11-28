@@ -131,11 +131,9 @@ INSERT INTO Blog_Users    VALUES(3040005,'Grace','2000-01-05','password3040005',
 INSERT INTO Blog_Users    VALUES(3040006,'John','2000-01-06','password3040006',0);
 INSERT INTO Blog_Users    VALUES(3040007,'Cindy','2000-02-02','password3040007',1);
 INSERT INTO Blog_Users    VALUES(3040008,'Darwin','1998-01-01','password3040008',1);
-
 INSERT INTO Blog_Users    VALUES(3040009,'John Smith','2000-01-06','password3040006',0);
 INSERT INTO Blog_Users    VALUES(30400010,'Cinda','2000-02-01','password3040007',1);
 INSERT INTO Blog_Users    VALUES(30400011,'Mike','1998-01-02','password3040008',1);
-
 
 INSERT INTO VIP    VALUES(3040001,3,'blue');
 INSERT INTO VIP    VALUES(3040002,8,NULL);
@@ -186,6 +184,7 @@ INSERT INTO About    VALUES(3045003, 'Cook');
 INSERT INTO About    VALUES(3045004, 'Sports');
 INSERT INTO About    VALUES(3045005, 'IT');
 INSERT INTO About    VALUES(3045006, 'IT');
+INSERT INTO About    VALUES(3045007, 'Cook');
 
 INSERT INTO Subscribe    VALUES(3040001,3045001);
 INSERT INTO Subscribe    VALUES(3040001,3045002);
@@ -210,17 +209,26 @@ INSERT INTO CID_DATETIME_Title    VALUES(3045002,to_date('0001-01-01 00:00:00','
 INSERT INTO CID_DATETIME_Title    VALUES(3045003,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'I tried an easy recipe but...','I do not know why everything went wrong..');
 INSERT INTO CID_DATETIME_Title    VALUES(3045004,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Got ticket for World Cup!!','So excited!!');
 INSERT INTO CID_DATETIME_Title    VALUES(3045005,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Finished my first personal project','I spent a month on it');
-INSERT INTO CID_DATETIME_Title    VALUES(3045006,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Got Fired from Amazon','still have a lot to learn...');
-INSERT INTO CID_DATETIME_Title    VALUES(3045007,to_date('0001-01-01 00:00:01','YYYY-MM-DD HH24:MI:SS'),'Question regarding','still have a lot to learn...');
+INSERT INTO CID_DATETIME_Title    VALUES(3045005,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Got Fired from Amazon','still have a lot to learn...');
+INSERT INTO CID_DATETIME_Title    VALUES(3045007,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'What is your favourite Chinese recipe?','For me Yangzhou Fried Rice is the best');
 INSERT INTO CID_DATETIME_Title    VALUES(3045006,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Finished my first personal project!','still have a lot to learn...');
+INSERT INTO CID_DATETIME_Title    VALUES(3045003,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'The oil temperature when frying fries','Can someone share experience about this?');
+INSERT INTO CID_DATETIME_Title    VALUES(3045002,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'What is your favourite Christmas song?','Christmas is coming!!');
+INSERT INTO CID_DATETIME_Title    VALUES(3045004,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Someone want to join my tennis group?','practice twice a month, Richmond');
+INSERT INTO CID_DATETIME_Title    VALUES(3045001,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'I miss Aniexpo so much...','hope everything gets better next year');
 
 INSERT INTO UID_CID_DATETIME    VALUES(3040001,3045001,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'New Anime Song Release Today!');
 INSERT INTO UID_CID_DATETIME    VALUES(3040002,3045002,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Where to find the piano version of this song?');
 INSERT INTO UID_CID_DATETIME    VALUES(3040003,3045003,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'I tried an easy recipe but...');
 INSERT INTO UID_CID_DATETIME    VALUES(3040004,3045004,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Got ticket for World Cup!!');
 INSERT INTO UID_CID_DATETIME    VALUES(3040005,3045005,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Finished my first personal project');
+INSERT INTO UID_CID_DATETIME    VALUES(3040007,3045005,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Got Fired from Amazon');
+INSERT INTO UID_CID_DATETIME    VALUES(3040007,3045007,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'What is your favourite Chinese recipe?');
 INSERT INTO UID_CID_DATETIME    VALUES(3040005,3045006,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Finished my first personal project!');
-INSERT INTO UID_CID_DATETIME    VALUES(3040007,3045007,to_date('0001-01-01 00:00:01','YYYY-MM-DD HH24:MI:SS'),'Question regarding');
+INSERT INTO UID_CID_DATETIME    VALUES(3040001,3045003,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'The oil temperature when frying fries');
+INSERT INTO UID_CID_DATETIME    VALUES(3040001,3045002,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'What is your favourite Christmas song?');
+INSERT INTO UID_CID_DATETIME    VALUES(3040005,3045004,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Someone want to join my tennis group?');
+INSERT INTO UID_CID_DATETIME    VALUES(3040007,3045001,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'),'I miss Aniexpo so much...');
 
 
 INSERT INTO BID    VALUES(3042001,3040001,3045001,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
@@ -229,6 +237,12 @@ INSERT INTO BID    VALUES(3042003,3040003,3045003,to_date('0001-01-01 00:00:00',
 INSERT INTO BID    VALUES(3042004,3040004,3045004,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
 INSERT INTO BID    VALUES(3042005,3040005,3045005,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
 INSERT INTO BID    VALUES(3042006,3040005,3045006,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO BID    VALUES(3042007,3040007,3045007,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO BID    VALUES(3042008,3040007,3045005,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO BID    VALUES(3042009,3040001,3045003,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO BID    VALUES(3042010,3040001,3045002,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO BID    VALUES(3042011,3040005,3045004,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO BID    VALUES(3042012,3040007,3045001,to_date('0001-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS'));
 
 INSERT INTO Comment_Create_Follows    VALUES(1,3042001,3040005,'Amazing!');
 INSERT INTO Comment_Create_Follows    VALUES(1,3042002,3040008,'check this link');
