@@ -27,7 +27,7 @@
 
   <div class="middle-container">
     <h2>Enter User ID to Ban the User</h2>
-    <p>If this user violates the regualtion, press on the BAN botton to ban the user</p>
+    <p>If this user violates the regualtion, press on the BAN button to ban the user</p>
     <form method="POST" action="admin.php"> 
     <input type="hidden" id="banUserRequest" name="banUserRequest">
     User ID: <input type="text" name="userID"> <br /><br />
@@ -37,7 +37,7 @@
 
   <div class="top-container">
   <h2>User List</h2>
-    <p>If you want to view the user list, select attributes and press on the view botton</p>
+    <p>If you want to view the user list, select attributes and press on the view button</p>
     <form method="POST" action="admin.php"> 
       <input type="checkbox" id="selectUserID" name="selectUserID" value="userID">
       <label for="selectUserID"> UserID</label><br>
@@ -56,7 +56,7 @@
 
   <div class="middle-container">
   <h2>Community List</h2>
-    <p>If you want to view the community list, press on the view botton</p>
+    <p>If you want to view the community list, press on the view button</p>
     <form method="POST" action="admin.php"> 
       <input type="hidden" id="listCommunityRequest" name="listCommunityRequest">
       <input class = "btn" type="submit" value="View" name="listcomm"></p>
@@ -65,7 +65,7 @@
 
   <div class="top-container">
     <h2>Loyal User List</h2>
-    <p>If you want to view the loyal user who subscribed all communities, press on the view botton</p>
+    <p>If you want to view the loyal user who subscribed all communities, press on the view button</p>
     <form method="POST" action="admin.php"> 
       <input type="hidden" id="listLoyalUserRequest" name="listLoyalUserRequest">
       <input class = "btn" type="submit" value="View" name="listloyaluser"></p>
@@ -74,7 +74,7 @@
 
   <div class="middle-container">
   <h2>VIP Data Matters</h2>
-    <p>If you want to view the count the number of vip users, in which there are more than x users in the vip_level, press on the view botton</p>
+    <p>If you want to view the count the number of vip users, in which there are more than x users in the vip_level, press on the view button</p>
     <form method="POST" action="admin.php"> 
       <input type="hidden" id="countingVIP" name="countingVIPRequest">
       Number of VIP: <input type="text" name="novip"> <br /><br />
@@ -83,6 +83,15 @@
   </div>
 
   <div class="top-container">
+      <h2>Active User List</h2>
+      <p>If you want to view the users who have post at least 3 blogs, press on the view button</p>
+      <form method="POST" action="admin.php">
+        <input type="hidden" id="countBlogRequest" name="countBlogRequest">
+        <input class = "btn" type="submit" value="View" name="countBlog"></p>
+      </form>
+    </div>
+
+  <div class="middle-container">
       <h2>Go To Super Admin</h2>
       <p>If you want to view the Super Admin page, press on the button</p>
       <form method="GET" action="superAdmin.php">
@@ -217,31 +226,50 @@
 
         echo "</table>";
       }
+
+      function handleCountBlogRequest() {
+        $result = executePlainSQL("SELECT userID, COUNT(blogID)
+                                   FROM BID
+                                   GROUP BY userID
+                                   Having COUNT(blogID) >= 3");
+        echo "<br> User post at least 3 blogs <br>";
+        echo "<table>";
+        echo "<tr><th>userID:</th><th>number of blogs:</th></tr>";;
+
+        while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+            echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td></tr>";
+        }
+
+        echo "</table>";
+      }
+
       function handlesuperAdminRequest() {
         header("refresh:0;url=superAdmin.php");
-    }
+      }
 
         function handlePOSTRequest() {
             if (connectToDB()) {
                 if (array_key_exists('ban', $_POST)) {
                     handleBanRequest();
                 } else if (array_key_exists('listcomm', $_POST)) {
-                  handleListCommRequest();
+                    handleListCommRequest();
                 } else if (array_key_exists('listuser', $_POST)) {
-                  handleListUserRequest();
+                    handleListUserRequest();
                 } else if (array_key_exists('listloyaluser', $_POST)) {
-                  handleListLoyalUserRequest();
+                    handleListLoyalUserRequest();
                 } else if (array_key_exists('countingVIP', $_POST)) {
-                  handlecountingVIPRequest();
+                    handlecountingVIPRequest();
                 } else if (array_key_exists('superAdminRequest', $_POST)) {
-                  handlesuperAdminRequest();
+                    handlesuperAdminRequest();
+                } else if (array_key_exists('countBlogRequest', $_POST)) {
+                    handleCountBlogRequest();
                 }
               OCICommit($db_conn);
               disconnectFromDB();
             }
         }
 
-		if (isset($_POST['ban']) || isset($_POST['listuser']) || isset($_POST['listcomm']) || isset($_POST['listloyaluser']) || isset($_POST['countingVIP'])|| isset($_POST['superAdminRequest'])) {
+		if (isset($_POST['ban']) || isset($_POST['listuser']) || isset($_POST['listcomm']) || isset($_POST['listloyaluser']) || isset($_POST['countBlog']) || isset($_POST['countingVIP'])|| isset($_POST['superAdminRequest'])) {
             handlePOSTRequest();
         } 
 
