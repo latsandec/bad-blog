@@ -97,7 +97,8 @@ if(isset($_GET['submit'])){
     // echo $attributeUpdate;
     if(connectToDB()){
         $cmd = "UPDATE VIP SET $attributeUpdate = $value WHERE vipID = $vipID";
-        $result = executePlainSQL($cmd);        
+        $result = executePlainSQL($cmd);  
+        OCICommit($db_conn);
     }
 }
 
