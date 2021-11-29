@@ -35,10 +35,10 @@
                 <input type="text" name ="field1" placeholder="field1">
                 <!-- <input type="text" name ="field2" placeholder="field2"> -->
                 <input type="text" name ="var1" placeholder="var1">
-                <!-- <input type="text" name ="var2" placeholder="var2"> -->
+                <input type="text" name ="condition" placeholder="selection condition">
                 <input class = "btn" type="submit" name="submit" value="confirm">
             
-            <p>Input two attribute you want to select, the name of the table, and constraint of field1 = var1.</p>
+            <p>Input two attribute you want to select, the name of the table, and constraint of field1 (condition) var1.</p>
         </form>
     </div>
     <div class="top-container">
@@ -49,8 +49,6 @@
                 <input type="text" name ="attribute5" placeholder="attribute you want to update">
                 <input type="text" name ="value" placeholder="value">
                 <input type="submit" name="submit2" value="confirm">
-            
-            <p>Input two attribute you want to select, the name of the table, and constraint of field1 = var1.</p>
         </form>
     </div>
 
@@ -88,11 +86,12 @@ $vipID = $_REQUEST["vipID"];
 $attributeUpdate = $_REQUEST["attribute5"];
 $value = $_REQUEST["value"];
 $num = $_REQUEST["number"];
+$condition = $_REQUEST["condition"];
 
 if(isset($_GET['submit'])){
     // echo "Good";
     if(connectToDB()){
-        $cmd = "SELECT $attribute1, $attribute2 FROM $table WHERE $field1 = $var1";
+        $cmd = "SELECT $attribute1, $attribute2 FROM $table WHERE $field1 $condition $var1";
         $result = executePlainSQL($cmd);
         //echo $cmd;
         echo "<br>Result<br>";
